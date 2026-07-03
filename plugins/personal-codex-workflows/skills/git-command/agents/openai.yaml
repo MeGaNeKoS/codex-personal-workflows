@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Command"
+  short_description: "Git command, commit, and history guidance"
+  default_prompt: "Use $git-command to run Git commands or revise commit history."

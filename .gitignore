@@ -1,0 +1,16 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# Python/tool caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local secrets/env
+.env
+.env.*
+*.local
+

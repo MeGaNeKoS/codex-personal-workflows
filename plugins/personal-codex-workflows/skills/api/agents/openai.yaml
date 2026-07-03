@@ -1,0 +1,4 @@
+interface:
+  display_name: "API"
+  short_description: "HTTP API design and problem+json guidance"
+  default_prompt: "Use the API skill to design or implement REST API contracts, route structure, OpenAPI schemas, and RFC 9457 problem+json errors."

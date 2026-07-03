@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Workflow"
+  short_description: "Operate goal mode and subagents."
+  default_prompt: "Use Codex workflow guidance to propose or run approved goal-mode and subagent workflows with clear ownership and verification."
