@@ -1,14 +1,14 @@
 {
-  "name": "personal-codex-workflows",
+  "name": "meganeko-codex-workflows",
   "interface": {
-    "displayName": "Personal Codex Workflows"
+    "displayName": "MeGaNeKo Codex Workflows"
   },
   "plugins": [
     {
-      "name": "personal-codex-workflows",
+      "name": "meganeko-codex-workflows",
       "source": {
         "source": "local",
-        "path": "./plugins/personal-codex-workflows"
+        "path": "./plugins/meganeko-codex-workflows"
       },
       "policy": {
         "installation": "AVAILABLE",

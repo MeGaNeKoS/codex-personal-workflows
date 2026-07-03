@@ -1,6 +1,6 @@
-# Personal Codex Workflows
+# MeGaNeKo Codex Workflows
 
-Personal Codex plugin bundling portable skills for coding, API design, Git workflow, and Codex workflow.
+MeGaNeKo Codex plugin bundling portable skills for coding, API design, Git workflow, and Codex workflow.
 
 Environment-specific skills, such as Docker context rules, stay local and are not bundled here.
 
@@ -13,7 +13,7 @@ codex plugin marketplace add MeGaNeKoS/codex-personal-workflows
 codex plugin marketplace upgrade
 ```
 
-Then open `/plugins`, select the marketplace, and install `personal-codex-workflows`.
+Then open `/plugins`, select the marketplace, and install `meganeko-codex-workflows`.
 
 ## Update
 
