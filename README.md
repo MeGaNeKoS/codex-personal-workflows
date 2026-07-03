@@ -9,7 +9,7 @@ Environment-specific skills, such as Docker context rules, stay local and are no
 After this repo is pushed to GitHub:
 
 ```powershell
-codex plugin marketplace add <owner>/<repo>
+codex plugin marketplace add MeGaNeKoS/codex-personal-workflows
 codex plugin marketplace upgrade
 ```
 

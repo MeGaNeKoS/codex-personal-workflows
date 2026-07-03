@@ -1,7 +1,7 @@
 {
-  "name": "personal",
+  "name": "personal-codex-workflows",
   "interface": {
-    "displayName": "Personal"
+    "displayName": "Personal Codex Workflows"
   },
   "plugins": [
     {
