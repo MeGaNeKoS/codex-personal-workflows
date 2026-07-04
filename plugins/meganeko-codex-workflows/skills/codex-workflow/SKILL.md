@@ -26,5 +26,6 @@ Read only the branch that applies:
 
 - Goal mode, long-running objectives, durable status, user acceptance criteria, completion/blocker rules: `references/goal-mode.md`
 - Subagents, parallel agent work, model and reasoning selection, bounded implementation/review/research prompts, skill forward-testing: `references/subagents.md`
+- Context hygiene, context compaction timing, drift recovery, and preservation instructions: `references/context-hygiene.md`
 
-If a task involves both goal mode and subagents, read both references. Use goal-mode guidance for overall ownership and subagent guidance only for delegation.
+If a task involves multiple workflow areas, read each matching reference. Use goal-mode guidance for overall ownership, subagent guidance only for delegation, and context-hygiene guidance only for compaction decisions.
