@@ -43,9 +43,11 @@ Use this preference for source inspection, search, simple audits, command execut
 
 If `gpt-5.3-codex-spark` is unavailable, quota-limited, rate-limited, unsupported, or launch fails because of the model override, retry with `gpt-5.4-mini`.
 
-If `gpt-5.4-mini` also fails or is unsuitable, retry with default subagent/model settings and no model override only when delegation is still useful. Note the fallback in main-thread status or the final response.
+If `gpt-5.4-mini` is unavailable, quota-limited, rate-limited, unsupported, or its explicit override fails, retry with `gpt-5.6-luna`.
 
-Do not use a stronger explicit model for routine subagent work. Escalate only when the delegated task requires substantial reasoning, the low-cost model produced incomplete or unreliable work, or user/system/developer instructions require it.
+If `gpt-5.6-luna` is unavailable, quota-limited, rate-limited, unsupported, or its explicit override fails, retry with default subagent/model settings and no model override only when delegation is still useful. Note the fallback in main-thread status or the final response.
+
+Do not use a stronger explicit model for routine subagent work before exhausting this fallback order. Escalate beyond it only when the delegated task requires substantial reasoning, the low-cost model produced incomplete or unreliable work, or user/system/developer instructions require it.
 
 ## Reasoning Selection
 
