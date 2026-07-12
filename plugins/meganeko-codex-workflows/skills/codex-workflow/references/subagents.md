@@ -11,6 +11,8 @@ Classify the next unit of work before running tools or editing files:
 - Main-thread work: intent, scope, prioritization, architecture, product direction, risk decisions, ambiguous requirements, integration, and final acceptance.
 - Subagent work: procedural execution, tool-specific operation, repetitive mechanical changes, bounded source inspection, bounded verification, cleanup after a chosen direction, implementation of a clearly defined slice, and review of a bounded diff or artifact.
 
+Assign each subagent one bounded workstream. Reuse the same subagent for related follow-up work when its retained context is useful. Use a new subagent when the work belongs to a different workstream or requires independent context.
+
 If the next unit is subagent work, spawn a subagent unless a skip condition applies.
 
 Main-thread judgment does not absorb adjacent procedural work. If the main thread decides the rule, pattern, product behavior, or architecture, subagents can still gather matches, inspect broad file sets, run checks, perform mechanical edits, or verify the result.
@@ -29,11 +31,13 @@ Codex subagents are explicit delegation. Follow the active AGENTS and developer 
 
 ## Lifecycle
 
-Close completed agents after their result has been integrated, rejected, or is no longer needed.
+A completed subagent turn does not close the subagent. After reviewing its result, either continue its workstream with related follow-up input or close it when that workstream is complete, rejected, superseded, or no longer needed.
 
-Before skipping delegation due to a full subagent pool or thread limit, first close every completed, failed, rejected, superseded, or no-longer-needed subagent whose result has been captured or intentionally discarded, then retry delegation.
+Reuse the same subagent for clarification, correction, deeper inspection, implementation revision, or verification related to its assigned workstream. Do not reuse a subagent for an unrelated workstream merely because it remains available.
 
-If delegation is still impossible after cleanup, the skip reason must say that cleanup was attempted and whether any agents were closed.
+Before skipping delegation due to a full subagent pool or thread limit, close agents that failed, were rejected or superseded, or completed their workstream with no related follow-up remaining. Preserve completed agents whose retained context is still useful unless releasing their slot is necessary for higher-priority work.
+
+After cleanup, retry delegation. If delegation remains impossible, the skip reason must state that cleanup was attempted and whether any agents were closed.
 
 ## Model Selection
 
@@ -42,6 +46,8 @@ Prefer `gpt-5.3-codex-spark` for ordinary subagents when available because it us
 Use this preference for source inspection, search, simple audits, command execution, formatting checks, documentation consistency checks, mechanical edits, small implementation slices, focused verification, and bounded review.
 
 If `gpt-5.3-codex-spark` is unavailable, quota-limited, rate-limited, unsupported, or launch fails because of the model override, retry with `gpt-5.4-mini`.
+
+Even if subagent tool metadata does not list `gpt-5.3-codex-spark` or `gpt-5.4-mini`, if explicit spawning succeeds for a model, proceed with the override fallback chain anyway and do not infer unavailability from metadata alone.
 
 If `gpt-5.4-mini` is unavailable, quota-limited, rate-limited, unsupported, or its explicit override fails, retry with `gpt-5.6-luna`.
 
@@ -132,13 +138,14 @@ Subagents may own:
 
 A subagent prompt should include:
 
+- bounded workstream
 - exact task
 - relevant paths, artifacts, logs, or diffs
 - whether edits are allowed
 - boundaries and files not to touch
 - structural expectations for implementation work, including responsibilities that should stay separate
 - expected output format
-- verification command, when applicable
+- expected completion evidence or verification
 
 Prefer raw artifacts over conclusions. Do not leak the expected answer unless the subagent is implementing an already-decided change.
 
@@ -177,10 +184,11 @@ After a subagent returns:
 1. Read the result critically.
 2. Verify important claims against source.
 3. Review structure, constraints, and project fit for delegated implementation.
-4. Decide what to accept, reject, or revise.
-5. Integrate changes in the main thread or assign another bounded task.
-6. Run final verification in the main thread.
-7. Close the subagent when no further input is needed.
+4. Decide whether the next task belongs to the same workstream.
+5. Continue with the same subagent when related follow-up benefits from its retained context.
+6. Use a new subagent when the next task belongs to a different workstream or requires independent context.
+7. Integrate accepted work and confirm that the combined result satisfies the user's request, using delegated verification where appropriate.
+8. Close the subagent when its workstream no longer needs follow-up.
 
 Do not present subagent output as final truth without validation. Passing checks confirms executability; it does not confirm maintainability.
 
