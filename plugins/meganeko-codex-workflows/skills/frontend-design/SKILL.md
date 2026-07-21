@@ -35,6 +35,14 @@ The process guarantee is: for the same relevant accessible source/config/tests/r
 
 Source-available research must trace component composition, handlers, state transitions, API/provider boundaries, routing and handoffs, persistence, loading/empty/partial/stale/error/offline states, retry/cancel, permissions/feature flags, focus and accessibility, motion/reduced motion, and tests. Runtime verification remains required whenever the target is accessible.
 
+## Engineering Handoff
+
+For frontend work that crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior, load the base [coding-practices skill](../coding-practices/SKILL.md), its [frontend index](../coding-practices/references/areas/frontend/INDEX.md), the focused references selected by the change, and the active language and framework indexes before editing.
+
+Use `frontend-design` for product framing, interaction, responsive behavior, accessibility, motion, copy, visual system, and runtime/visual evidence. Use `coding-practices` for code ownership, dependency direction, module structure, type flow, abstractions, and test seams.
+
+Record the change map required by the frontend ownership reference. If a design requires an undefined owner or forbidden dependency, mark it **Proposed** and resolve the architecture decision before implementation. Design evidence does not override repository boundaries.
+
 ## Design Standards
 
 - Design the usable product first unless a landing page is explicitly requested.

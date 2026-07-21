@@ -11,16 +11,31 @@ Use this branch for frontend product design, UI implementation, responsive behav
 - Implement semantic HTML first; use ARIA only to fill semantic gaps.
 - Verify meaningful UI changes in a browser with realistic viewport sizes.
 
-## Ownership
+## Architecture Routing
 
-- Prefer a three-layer frontend structure: design system layer, feature layer, and route/app layer.
-- Use light Atomic Design only inside the shared design system.
-- Keep atoms domain-neutral: buttons, badges, inputs, toggles, icons, spinners, and tooltips.
-- Keep molecules domain-neutral: page headers, panels, notices, data tables, form fields, drawers, modals, tabs, pagination, empty states, key-value lists, and metric tiles.
-- Keep product-specific UI in feature folders.
-- Keep routes/pages thin. They should load route data, handle route params, choose layout, and render feature components.
-- Promote components slowly: feature-specific first, molecule only after multiple domains need it, atom only when it is a true primitive.
-- Avoid vague root-level buckets such as `utils`, `helpers`, or `common` unless the module has a clear contract.
+Select every row matched by the change. An explicit **Also load** instruction in a focused reference adds another reference; ordinary links do not.
+
+| Changed concern | Load |
+| --- | --- |
+| Owner selection, application/feature/domain/design-system boundaries, dependency direction, or import enforcement | [Ownership And Dependencies](./ownership-and-dependencies.md) |
+| Trust or representation boundary, external client, port, SDK, persistence/browser API, adapter, or external-operation lifecycle | [Boundaries And Integrations](./boundaries-and-integrations.md) |
+| Mutable state, transition, concurrency, synchronization, lifecycle, or source of truth | [State Ownership](./state-ownership.md) |
+| Product component placement, neutral primitive ownership, or promotion to another frontend owner | [Components And Promotion](./components-and-promotion.md) |
+| Paths, filenames, directories, or splitting one owner across files/components | [File Organization](./file-organization.md) |
+| Test responsibility or verification seam | [Testing](./testing.md) |
+
+For TypeScript projects, also load the focused [TypeScript references](../../languages/typescript/INDEX.md) matching the type concerns. Load the active framework reference for framework file and lifecycle mapping.
+
+## Frontend Architecture Gates
+
+- Every changed responsibility must have one named owner and an allowed dependency direction before editing.
+- Framework and route files adapt framework inputs; product workflow and domain policy remain with their owners.
+- Product behavior starts feature-local. Neutral ownership requires explicit evidence, not a generic visual name.
+- State transitions and boundary conversions each have one responsible owner.
+- Destructive, irreversible, security-sensitive, or audit-sensitive commands require a deliberate confirmation or prevention safeguard selected and verified through the active frontend-design workflow.
+- Tests and import checks must expose the same ownership graph as production code.
+
+These are routing gates. Focused references own the detailed architecture policy and must not be copied back into this index.
 
 ## Styling System Selection
 

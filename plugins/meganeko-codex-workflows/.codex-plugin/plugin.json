@@ -1,6 +1,6 @@
 {
   "name": "meganeko-codex-workflows",
-  "version": "0.2.0+codex.20260715160924",
+  "version": "0.2.0+codex.20260721155619",
   "description": "Portable Codex workflow, context hygiene, coding, frontend design, API, and Git skills.",
   "author": {
     "name": "MeGaNeKo"
