@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design"
+  short_description: "Research, design, implement, and verify frontend UI."
+  default_prompt: "Use $frontend-design to research, plan, implement, and verify this frontend interface."

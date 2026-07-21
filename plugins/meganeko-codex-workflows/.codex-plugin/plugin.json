@@ -1,7 +1,7 @@
 {
   "name": "meganeko-codex-workflows",
-  "version": "0.2.0+codex.20260704143549",
-  "description": "Portable Codex workflow, context hygiene, coding, API, and Git skills.",
+  "version": "0.2.0+codex.20260715160924",
+  "description": "Portable Codex workflow, context hygiene, coding, frontend design, API, and Git skills.",
   "author": {
     "name": "MeGaNeKo"
   },
@@ -11,13 +11,14 @@
     "workflow",
     "context",
     "coding",
+    "frontend-design",
     "git"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "MeGaNeKo Codex Workflows",
-    "shortDescription": "Shared Codex guidance for coding, Git, API, workflow, and context hygiene tasks.",
-    "longDescription": "MeGaNeKo Codex Workflows bundles portable skills for engineering practice, API contracts, Git hygiene, context hygiene, and Codex operating workflow. Environment-specific skills such as Docker context rules stay local.",
+    "shortDescription": "Shared Codex guidance for coding, frontend design, Git, API, workflow, and context hygiene tasks.",
+    "longDescription": "MeGaNeKo Codex Workflows bundles portable skills for engineering practice, production frontend design, API contracts, Git hygiene, context hygiene, and Codex operating workflow. Environment-specific skills such as Docker context rules stay local.",
     "developerName": "MeGaNeKo",
     "category": "Productivity",
     "capabilities": [
@@ -25,6 +26,7 @@
     ],
     "defaultPrompt": [
       "Use my shared coding guidance.",
+      "Research, design, implement, and verify this interface.",
       "Apply my Git workflow preferences.",
       "Use my Codex workflow guidance.",
       "Use context hygiene guidance for long-running threads."
