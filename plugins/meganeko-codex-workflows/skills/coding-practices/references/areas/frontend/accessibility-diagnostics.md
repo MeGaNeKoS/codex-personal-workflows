@@ -12,6 +12,9 @@ Verify:
 - visible labels and accessible names do not contradict each other
 - decorative icons are hidden from assistive technology
 - ARIA is not used to fake behavior that native elements already provide
+- prefer `aria-label` or `aria-labelledby` over visually hidden text for simple icon-only control names
+- use visually hidden text only when it provides real screen-reader-only context that cannot be expressed cleanly through existing semantic names
+- avoid visually hidden table captions when they create layout or scroll artifacts; use a visible caption, a nearby heading with `aria-labelledby`, or `aria-label` on the table
 
 ## 2. Verify Keyboard Behavior
 
@@ -68,6 +71,16 @@ Measure:
 - landmark labels
 - form label/error associations
 - whether hidden content is still focusable
+
+When using visually hidden content such as `sr-only`, verify it does not participate in layout unexpectedly.
+
+Measure:
+- `document.documentElement.scrollWidth` and `scrollHeight` before and after the hidden element is rendered
+- the hidden element's `getBoundingClientRect()`
+- the parent control's target size and alignment
+- whether the hidden element sits inside special layout contexts such as table captions, table structures, flex/grid controls, drawers, or positioned containers
+
+Do not assume visually hidden content is layout-neutral. It normally should be, but browser and layout interactions can leave a 1px absolutely positioned box that expands scrollable area or shifts control alignment.
 
 Do not accept "looks fine" when the issue can be measured.
 

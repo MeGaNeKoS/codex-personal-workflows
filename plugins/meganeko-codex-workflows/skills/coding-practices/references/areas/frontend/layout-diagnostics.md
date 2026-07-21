@@ -46,6 +46,8 @@ Check whether hidden children still consume:
 - margins
 - line height
 
+For visually hidden accessibility text (`sr-only`, clipped labels, hidden captions), verify document scroll size and the hidden element's bounding box. If hidden text causes overflow, prefer semantic naming (`aria-label`, `aria-labelledby`) or a visible label/caption instead of forcing clipped content into that layout.
+
 For icon-only controls, ensure the icon is centered inside the actual hover/focus target.
 
 ## 5. Inspect The Reported State
