@@ -11,6 +11,7 @@ Use this skill as the single installed coding guidance entry point. Keep this fi
 
 - Match existing repository style and keep changes scoped to the requested behavior before introducing a new convention.
 - Name domain concepts, protocol values, limits, defaults, and operational constants instead of scattering unexplained primitives. Keep each named value with the owner of the rule or contract it expresses.
+- Treat unexplained numeric literals as magic numbers. Name thresholds, sizes, timeouts, retry counts, breakpoints, layers, and protocol values with constants owned by the rule. Keep obvious indices and arithmetic identities inline when their meaning is self-evident.
 - Keep public APIs intentional and small.
 - Prefer existing language, platform, framework, and repository primitives. Add a dependency only when it removes meaningful complexity or supplies mature behavior that is risky to implement locally, including accessibility-sensitive interaction behavior that repository primitives do not already provide.
 - Do not create vague cross-owner buckets such as `utils`, `helpers`, or `common`. Use a named responsibility or a repository-designated neutral primitive family.
