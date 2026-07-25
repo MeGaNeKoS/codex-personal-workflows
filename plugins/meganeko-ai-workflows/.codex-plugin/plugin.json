@@ -1,0 +1,35 @@
+{
+  "name": "meganeko-ai-workflows",
+  "version": "0.3.0",
+  "description": "Portable agent workflow, context hygiene, coding, frontend design, API, and Git skills.",
+  "author": {
+    "name": "MeGaNeKo"
+  },
+  "keywords": [
+    "agent-workflows",
+    "skills",
+    "workflow",
+    "context",
+    "coding",
+    "frontend-design",
+    "git"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "MeGaNeKo AI Workflows",
+    "shortDescription": "Shared guidance for coding, frontend design, Git, API, workflow, and context hygiene tasks.",
+    "longDescription": "MeGaNeKo AI Workflows bundles portable skills for engineering practice, production frontend design, API contracts, Git hygiene, context hygiene, and agent operating workflow. The same skills can be installed in supported agent environments.",
+    "developerName": "MeGaNeKo",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills"
+    ],
+    "defaultPrompt": [
+      "Use my shared coding guidance.",
+      "Research, design, implement, and verify this interface.",
+      "Apply my Git workflow preferences.",
+      "Use my agent workflow guidance.",
+      "Use context hygiene guidance for long-running threads."
+    ]
+  }
+}

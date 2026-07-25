@@ -17,7 +17,7 @@ Do not start goal mode just because the task is complex. Propose it only when du
 
 ## Approval Rule
 
-Codex may propose goal mode, but must not start it unless the user explicitly approves the inferred goal and acceptance criteria.
+The agent may propose goal mode, but must not start it unless the user explicitly approves the inferred goal and acceptance criteria.
 
 A proposal must include:
 
@@ -25,7 +25,7 @@ A proposal must include:
 - why goal mode fits
 - proposed acceptance criteria
 - known assumptions or unknowns
-- what Codex would track
+- what the agent would track
 
 If the user does not approve, continue in normal mode.
 
@@ -92,7 +92,7 @@ If verification could not be run, report the residual risk.
 
 ## Blocked Rule
 
-Declare blocked only when Codex cannot make meaningful progress without user input or an external state change.
+Declare blocked only when the agent cannot make meaningful progress without user input or an external state change.
 
 Before declaring blocked:
 

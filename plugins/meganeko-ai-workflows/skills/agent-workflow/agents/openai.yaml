@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Workflow"
+  short_description: "Operate goals and delegated workflows."
+  default_prompt: "Use agent workflow guidance to propose or run approved goal and delegated workflows with clear ownership and verification."

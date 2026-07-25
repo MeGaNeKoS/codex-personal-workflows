@@ -1,11 +1,11 @@
 ---
-name: codex-workflow
-description: "Use for Codex operating workflows: goal mode, subagents, delegated implementation or review, context hygiene, UAC, and skill forward testing. Generic guidance, not project implementation."
+name: agent-workflow
+description: "Use for agent operating workflows: goal mode, delegated implementation or review, context hygiene, permission boundaries, and skill forward testing. Generic guidance, not project implementation."
 ---
 
-# Codex Workflow
+# Agent Workflow
 
-Use this skill as the single global entry point for Codex operating workflow guidance.
+Use this skill as the single global entry point for agent operating workflow guidance.
 
 Keep this file small. Load only the reference that matches the task.
 
@@ -17,7 +17,7 @@ Keep this file small. Load only the reference that matches the task.
 - Follow the active AGENTS and developer delegation policy as the source of truth for when delegation is required, optional, or skipped.
 - Propose stronger workflow modes when they would materially improve the work.
 - Do not start goal mode unless the user explicitly asks for it or approves the proposal.
-- Main-thread Codex owns user intent, product understanding, architecture and UX judgment, acceptance criteria, integration, verification, and final status.
+- The main agent owns user intent, product understanding, architecture and UX judgment, acceptance criteria, integration, verification, and final status.
 - Read source artifacts before making project-specific claims.
 
 ## Reference Routing

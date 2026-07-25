@@ -1,14 +1,14 @@
 {
-  "name": "meganeko-codex-workflows",
+  "name": "meganeko-ai-workflows",
   "interface": {
-    "displayName": "MeGaNeKo Codex Workflows"
+    "displayName": "MeGaNeKo AI Workflows"
   },
   "plugins": [
     {
-      "name": "meganeko-codex-workflows",
+      "name": "meganeko-ai-workflows",
       "source": {
         "source": "local",
-        "path": "./plugins/meganeko-codex-workflows"
+        "path": "./plugins/meganeko-ai-workflows"
       },
       "policy": {
         "installation": "AVAILABLE",

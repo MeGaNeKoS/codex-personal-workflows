@@ -27,7 +27,7 @@ Skip conditions:
 
 If skipping delegation for subagent work, state: `Skipping subagent because: <specific reason>.`
 
-Codex subagents are explicit delegation. Follow the active AGENTS and developer delegation policy as the source of truth for whether bounded work should be delegated by default or requires user approval.
+Subagents are explicit delegation. Follow the active project and runtime policy as the source of truth for whether bounded work should be delegated by default or requires user approval.
 
 ## Lifecycle
 
@@ -41,19 +41,9 @@ After cleanup, retry delegation. If delegation remains impossible, the skip reas
 
 ## Model Selection
 
-Prefer `gpt-5.3-codex-spark` for ordinary subagents when available because it uses a separate quota pool and fits bounded delegated work.
+Use the runtime's supported default or lowest-cost capable model for routine delegated work. Prefer a stronger model only when the task requires substantial reasoning, the delegated result is incomplete or unreliable, or the active runtime policy requires it.
 
-Use this preference for source inspection, search, simple audits, command execution, formatting checks, documentation consistency checks, mechanical edits, small implementation slices, focused verification, and bounded review.
-
-If `gpt-5.3-codex-spark` is unavailable, quota-limited, rate-limited, unsupported, or launch fails because of the model override, retry with `gpt-5.4-mini`.
-
-Even if subagent tool metadata does not list `gpt-5.3-codex-spark` or `gpt-5.4-mini`, if explicit spawning succeeds for a model, proceed with the override fallback chain anyway and do not infer unavailability from metadata alone.
-
-If `gpt-5.4-mini` is unavailable, quota-limited, rate-limited, unsupported, or its explicit override fails, retry with `gpt-5.6-luna`.
-
-If `gpt-5.6-luna` is unavailable, quota-limited, rate-limited, unsupported, or its explicit override fails, retry with default subagent/model settings and no model override only when delegation is still useful. Note the fallback in main-thread status or the final response.
-
-Do not use a stronger explicit model for routine subagent work before exhausting this fallback order. Escalate beyond it only when the delegated task requires substantial reasoning, the low-cost model produced incomplete or unreliable work, or user/system/developer instructions require it.
+Do not hard-code provider-specific model names or fallback chains into this shared guidance. If a runtime exposes model selection, follow that runtime's documented capability and availability signals.
 
 ## Reasoning Selection
 
@@ -94,7 +84,7 @@ Avoid subagents for:
 
 ## Approval Rule
 
-Codex may propose subagents for bounded code inspection, implementation, review, or research.
+The agent may propose subagents for bounded code inspection, implementation, review, or research.
 
 When active AGENTS or developer instructions require delegation by default, delegate bounded work without asking for extra approval unless a skip condition or higher risk approval case applies. Otherwise, ask for explicit user approval before spawning subagents unless the user has already explicitly asked for subagents or parallel agent work.
 
