@@ -17,6 +17,11 @@ Use this skill as the single installed coding guidance entry point. Keep this fi
 - Do not create vague cross-owner buckets such as `utils`, `helpers`, or `common`. Use a named responsibility or a repository-designated neutral primitive family.
 - Comment non-obvious decisions, invariants, tradeoffs, and operational constraints; do not narrate self-explanatory code.
 
+## Readability And Control Flow
+
+- Prefer explicit control flow when a decision contains multiple branches, validation, fallback behavior, or side effects. Avoid nested conditional expressions that make the decision order difficult to inspect. Use `if` statements or extract a named resolver when that makes the rules clearer and independently testable.
+- Make assumptions about execution context explicit. Keep context-sensitive behavior behind a clearly named boundary, and ensure the owning code is valid in every context where it may execute.
+
 ## Ownership And Change Shape
 
 - Before a non-trivial implementation, identify each changed responsibility's owner, allowed dependency direction, trust or representation boundary, domain-safe value that must survive, and test seam. A change is non-trivial when it crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior.
