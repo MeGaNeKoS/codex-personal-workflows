@@ -18,6 +18,6 @@ Use this reference when a change adds mutable state, a transition, synchronizati
 
 The boundary adapter owns transport and cancellation mechanisms; this reference owns the product-visible lifecycle and transition policy. Do not implement retries, schedules, or caches independently in both places.
 
-**Also load:** [Boundaries And Integrations](./boundaries-and-integrations.md) when state coordinates an external operation.
+**Also load:** [Boundaries](./boundaries.md) when state coordinates an external operation.
 
 Test transitions at the state owner, including stale-result, cancellation, retry, and synchronization cases. Test cross-owner workflows at the integration or browser seam.

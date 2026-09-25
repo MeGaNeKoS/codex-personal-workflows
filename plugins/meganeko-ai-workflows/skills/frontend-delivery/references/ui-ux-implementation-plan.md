@@ -1,8 +1,8 @@
 # UI/UX Implementation Plan
 
-Use this procedure for substantial frontend implementation. Create `docs/<feature>-ui-ux-plan.md` as a build-ready behavior specification, not an engineering schedule. If the user requested only a plan, stop after producing it. The implementer must not need to invent UX behavior.
+Use this procedure for non-trivial frontend implementation, using the shared scope test in the skill entry point. Create `docs/<feature>-ui-ux-plan.md` as a build-ready behavior specification, not an engineering schedule. If the user requested only a plan, stop after producing it. The implementer must not need to invent UX behavior.
 
-Label factual claims **Observed**, **Inferred**, **Proposed**, or **Unknown**, and attach traceable evidence. Resolve factual conflicts or record concrete blockers and evidence needed.
+Label factual claims **Observed**, **Inferred**, **Proposed**, or **Unknown**, and attach traceable evidence, following [evidence-contract.md](./evidence-contract.md). Resolve factual conflicts or record concrete blockers and evidence needed.
 
 ## Product and Scope
 

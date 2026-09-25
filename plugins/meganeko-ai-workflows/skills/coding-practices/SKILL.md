@@ -1,77 +1,36 @@
 ---
 name: coding-practices
-description: Use when AGENTS requires coding guidance, or when a code task needs non-trivial implementation architecture, ownership, dependency seams, testing strategy, backend/frontend structure, language, framework, or protocol implementation decisions. Use api for HTTP/REST contract, OpenAPI, auth/versioning contract, status/header, or RFC 9457 response-shape decisions.
+description: Use before writing, refactoring, or reviewing code whenever the change crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior, or when project instructions require coding guidance. Covers implementation architecture, ownership, dependency seams, testing strategy, backend/frontend structure, and language, framework, or protocol implementation decisions. Use api for HTTP/REST contract, OpenAPI, auth/versioning contract, status/header, or RFC 9457 response-shape decisions.
 ---
 
 # Coding Practices
 
-Use this skill as the single installed coding guidance entry point. Keep this file small; load scoped references only when the task needs them.
+Router only. Every rule has exactly one owning file; this one owns none.
 
-## General Engineering
+## Scope Test
 
-- Match existing repository style and keep changes scoped to the requested behavior before introducing a new convention.
-- Name domain concepts, protocol values, limits, defaults, and operational constants instead of scattering unexplained primitives. Keep each named value with the owner of the rule or contract it expresses.
-- Treat unexplained numeric literals as magic numbers. Name thresholds, sizes, timeouts, retry counts, breakpoints, layers, and protocol values with constants owned by the rule. Keep obvious indices and arithmetic identities inline when their meaning is self-evident.
-- Keep public APIs intentional and small.
-- Prefer existing language, platform, framework, and repository primitives. Add a dependency only when it removes meaningful complexity or supplies mature behavior that is risky to implement locally, including accessibility-sensitive interaction behavior that repository primitives do not already provide.
-- Do not create vague cross-owner buckets such as `utils`, `helpers`, or `common`. Use a named responsibility or a repository-designated neutral primitive family.
-- Comment non-obvious decisions, invariants, tradeoffs, and operational constraints; do not narrate self-explanatory code.
+**Non-trivial** means the change crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior. Adding code to a file already over 1000 lines, or adding a new behavior area to a test file, is also non-trivial.
 
-## Readability And Control Flow
+Anything else is trivial: match repository style, proceed, load nothing. Guidance elsewhere saying "substantial" or "significant" means this definition.
 
-- Prefer explicit control flow when a decision contains multiple branches, validation, fallback behavior, or side effects. Avoid nested conditional expressions that make the decision order difficult to inspect. Use `if` statements or extract a named resolver when that makes the rules clearer and independently testable.
-- Make assumptions about execution context explicit. Keep context-sensitive behavior behind a clearly named boundary, and ensure the owning code is valid in every context where it may execute.
+## Load
 
-## Ownership And Change Shape
+1. Non-trivial work always loads [Core Practices](./references/core.md), for the universal gates and the change map.
+2. Then every branch matched below. Branches compose. Activating a branch does not load all of it; each index selects its own leaves.
 
-- Before a non-trivial implementation, identify each changed responsibility's owner, allowed dependency direction, trust or representation boundary, domain-safe value that must survive, and test seam. A change is non-trivial when it crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior.
-- Keep code with the narrowest repository-designated owner whose contract matches its responsibility. Treat the full path as naming context, and create directories only for real named responsibilities.
-- Promote code only to a matching designated owner with a real consumer or a deliberately established neutral primitive family. A generic name, repeated import, large file, or predicted reuse is not promotion evidence.
-- Split at stable responsibility seams. File size, file count, and directory count are audit signals, not automatic split or promotion thresholds.
-- If a change requires a forbidden dependency, an undefined owner, duplicated validation, or loss of a domain-safe value, stop and report the structural conflict. Do not hide it behind a barrel, callback, cast, locator, or generic wrapper.
-- Pass replaceable external clients, clocks, and runtime services through an explicit contract at the owning composition seam. Do not hide them behind a global registry or service locator.
-- Do not inject a pure deterministic helper merely for stylistic symmetry. Call it directly unless substitution, side effects, runtime context, or an actual ownership boundary makes a dependency seam necessary.
+| Branch | Load when |
+| --- | --- |
+| [Backend](./references/areas/backend/INDEX.md) | services, transport handlers, repositories, outbound clients, backend tests |
+| [Frontend](./references/areas/frontend/INDEX.md) | UI behavior, accessibility, layout, forms, tables, browser verification |
+| [Rust](./references/languages/rust/INDEX.md) · [Go](./references/languages/go/INDEX.md) · [Python](./references/languages/python/INDEX.md) · [TypeScript](./references/languages/typescript/INDEX.md) | the language being written |
+| [Svelte](./references/frameworks/svelte/INDEX.md) · [Tonic](./references/frameworks/tonic/INDEX.md) · [SQLx](./references/frameworks/sqlx/INDEX.md) | the framework being used |
+| [HTTP](./references/protocols/http/INDEX.md) · [gRPC](./references/protocols/grpc/INDEX.md) | the wire protocol being defined |
+| [Readability](./references/readability.md) | writing code: naming a value, restructuring a branch, or commenting a decision |
+| [Function Shape](./references/function-shape.md) | writing or reviewing a function: deciding what it needs to run, or splitting a function that mixes decision and effect |
+| [Dependency Management](./references/dependency-management.md) | adding, replacing, or removing a dependency |
 
-## Contracts And Tests
+Typical compositions: Rust backend service → backend + Rust. Rust gRPC with Tonic → backend + Rust + gRPC + Tonic. Svelte UI → frontend + TypeScript + Svelte. TypeScript backend API → backend + TypeScript + HTTP.
 
-- Decode data where trust or representation changes. Call construction owned by the invariant's domain contract, then retain the domain-safe value through internal layers until another boundary requires conversion.
-- Introduce an abstraction or type parameter only when it preserves a real relationship, isolates an external dependency, supports substitutable implementations, or implements a reused algorithm. Otherwise prefer the concrete owner and contract.
-- Follow the repository's test-location convention, but make test responsibility reveal the production owner and boundary seam. Add compile-time tests when the type system carries an invariant runtime tests cannot prove.
+## Precedence
 
-## Reference Routing
-
-Read only the branches that apply. Branches are composable; a task may need one area branch plus one language branch plus one framework/library or protocol branch.
-
-Area branches:
-
-- Backend architecture, services, APIs, repositories, outbound clients, or backend tests: `references/areas/backend/INDEX.md`
-- Frontend product/UI behavior, accessibility, layout, forms, tables, or browser verification: `references/areas/frontend/INDEX.md`
-
-Language branches:
-
-- Rust: `references/languages/rust/INDEX.md`
-- Go: `references/languages/go/INDEX.md`
-- Python: `references/languages/python/INDEX.md`
-- TypeScript/JavaScript: `references/languages/typescript/INDEX.md`
-
-Framework/library branches:
-
-- Svelte/SvelteKit: `references/frameworks/svelte/INDEX.md`
-- Tonic: `references/frameworks/tonic/INDEX.md`
-- SQLx: `references/frameworks/sqlx/INDEX.md`
-
-Protocol branches:
-
-- HTTP/API: `references/protocols/http/INDEX.md`
-- gRPC: `references/protocols/grpc/INDEX.md`
-
-Examples:
-
-- Rust backend service: backend area + Rust language.
-- Rust gRPC service with Tonic: backend area + Rust language + gRPC protocol + Tonic framework.
-- Svelte UI: frontend area + TypeScript language + Svelte framework.
-- TypeScript backend API: backend area + TypeScript language + HTTP/API protocol.
-
-For frontend work that meets the non-trivial definition above, load the frontend area index, every focused frontend reference matching the changed concerns, and the active language and framework indexes before editing. From those indexes, load only the focused references selected by the changed concerns or an explicit `Also load` instruction; activation alone does not load an entire branch. The area owns frontend architecture, the language owns type-system mechanics, and the framework maps those rules onto framework files and lifecycle seams.
-
-Do not read every branch by default. Follow the path needed for the task.
+Area owns responsibility placement and dependency direction. Language owns type-system and syntax mechanics. Framework maps both onto its files and lifecycle. Protocol owns wire contracts. When two branches appear to cover the same rule, the narrower one is wrong and should link, not restate.

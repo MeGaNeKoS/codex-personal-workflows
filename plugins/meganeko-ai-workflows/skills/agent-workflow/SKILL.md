@@ -1,6 +1,6 @@
 ---
 name: agent-workflow
-description: "Use for agent operating workflows: goal mode, delegated implementation or review, context hygiene, permission boundaries, and skill forward testing. Generic guidance, not project implementation."
+description: "Use when work will span many turns or needs durable objective tracking, when deciding whether to delegate bounded work to subagents, when a thread is drifting or carrying stale context, or when choosing between asking the user and proceeding. Covers goal mode, delegation boundaries, context hygiene, and skill forward-testing."
 ---
 
 # Agent Workflow
@@ -14,7 +14,7 @@ Keep this file small. Load only the reference that matches the task.
 - Treat goal mode as an explicit operating contract with the user.
 - Treat subagents as delegated workers or evaluators for both normal turns and goal mode, not final decision makers.
 - Preserve the main thread for judgment work.
-- Follow the active AGENTS and developer delegation policy as the source of truth for when delegation is required, optional, or skipped.
+- Follow the active project instructions (`CLAUDE.md`, `AGENTS.md`, or the runtime equivalent) and developer delegation policy as the source of truth for when delegation is required, optional, or skipped.
 - Propose stronger workflow modes when they would materially improve the work.
 - Do not start goal mode unless the user explicitly asks for it or approves the proposal.
 - The main agent owns user intent, product understanding, architecture and UX judgment, acceptance criteria, integration, verification, and final status.
@@ -31,3 +31,9 @@ Read only the branch that applies:
 If a task may need context management, read `references/context-hygiene.md`. This includes long-running work, resumed work, goal mode, topic shifts, subagent-heavy work, or any task where stale context may reduce accuracy.
 
 If a task involves multiple workflow areas, read each matching reference. Use goal-mode guidance for overall ownership, subagent guidance only for delegation, and context-hygiene guidance only for compaction decisions.
+
+## Runtime Mapping
+
+These references define judgment, not mechanism: when to delegate, when to compact, what to preserve, what completion means. They name no tools on purpose.
+
+Apply the judgment through whatever primitives the active runtime provides. Do not invent tool names, and do not assume a lever exists because the judgment implies one. Runtimes that need a tailored variant of this skill ship their own copy under a provider-specific skills directory, which replaces this file rather than supplementing it.

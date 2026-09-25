@@ -17,6 +17,36 @@ Use this reference when backend data crosses a protocol, persistence, configurat
 - Do not weaken branded, canonical, unit-bearing, timestamp, or closed-state values to unqualified strings or numbers inside application code.
 - Keep external representations and their normalization failures inside the smallest adapter that can observe them.
 
+### Applied
+
+The failure mode is a domain value that gets flattened back to a primitive somewhere in the middle, so every later layer has to re-establish the invariant or silently trust it.
+
+```text
+Wrong: the value decays, and the last layer cannot tell validated from raw.
+
+  HTTP adapter    parse -> Email          (validated once)
+  service         (email: string)         <-- decayed here
+  repository      (email: string)
+  notifier        sendTo(email: string)   <-- is this validated? unknowable
+
+Right: the value is established once and carried.
+
+  HTTP adapter    parse -> Email
+  service         (email: Email)
+  repository      (email: Email)          -> toColumn(email) at the SQL edge
+  notifier        sendTo(email: Email)
+```
+
+Each crossing decodes independently. A value that arrived validated over HTTP is *not* automatically valid when it comes back out of the database later:
+
+```text
+HTTP request   -> decode -> Email   (crossing 1: untrusted input)
+Postgres row   -> decode -> Email   (crossing 2: storage may predate the rule,
+                                     or have been written by another writer)
+```
+
+Skipping crossing 2 is the common bug. See the active language reference for when a trusted constructor may replace parsing there.
+
 ## Authority For Mechanics
 
 - Treat the active language reference as the exclusive authority for parsing, validation, construction, casting, unchecked conversion, and other language-level escape-hatch mechanics.

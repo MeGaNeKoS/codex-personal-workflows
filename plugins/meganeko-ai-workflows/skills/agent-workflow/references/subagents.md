@@ -35,27 +35,21 @@ A completed subagent turn does not close the subagent. After reviewing its resul
 
 Reuse the same subagent for clarification, correction, deeper inspection, implementation revision, or verification related to its assigned workstream. Do not reuse a subagent for an unrelated workstream merely because it remains available.
 
-Before skipping delegation due to a full subagent pool or thread limit, close agents that failed, were rejected or superseded, or completed their workstream with no related follow-up remaining. Preserve completed agents whose retained context is still useful unless releasing their slot is necessary for higher-priority work.
+Runtimes differ in whether a subagent is a persistent addressable worker or a one-shot call that can be continued by message. Where subagents persist and occupy a limited pool, release agents that failed, were rejected or superseded, or finished a workstream with no follow-up remaining, before concluding that delegation is impossible; preserve agents whose retained context is still useful unless a higher-priority workstream needs the slot. Where subagents do not persist, this section is a no-op and reuse means addressing the same agent again rather than keeping a slot open.
 
-After cleanup, retry delegation. If delegation remains impossible, the skip reason must state that cleanup was attempted and whether any agents were closed.
+If delegation remains impossible after cleanup, the skip reason must say so explicitly.
 
-## Model Selection
+## Cost Selection
 
-Use the runtime's supported default or lowest-cost capable model for routine delegated work. Prefer a stronger model only when the task requires substantial reasoning, the delegated result is incomplete or unreliable, or the active runtime policy requires it.
+Delegated work should run at the cheapest setting that still produces a reliable result. Runtimes expose this differently: model tier, reasoning effort, both, or neither. Apply the principle through whatever levers exist and do not assume a lever is available.
 
-Do not hard-code provider-specific model names or fallback chains into this shared guidance. If a runtime exposes model selection, follow that runtime's documented capability and availability signals.
+Run at the low setting by default for source search, bounded inspection, simple audits, command execution, formatting and documentation consistency checks, mechanical edits, small implementation slices, focused verification, and bounded review.
 
-## Reasoning Selection
+Escalate when the task requires non-trivial implementation judgment, multi-file causal debugging, or careful review, or when a low pass came back incomplete, inconsistent, or unreliable.
 
-Use low reasoning for ordinary subagent work by default.
+Do not hard-code provider-specific model names or fallback chains into this shared guidance. Follow the active runtime's documented capability and availability signals.
 
-Use low reasoning for source search, bounded inspection, simple audits, command execution, formatting checks, documentation consistency checks, mechanical edits, small implementation slices, focused verification, and bounded review.
-
-Escalate to medium reasoning when the task requires non-trivial implementation judgment, multi-file causal debugging, careful review, or when a low-reasoning pass is incomplete, inconsistent, or unreliable.
-
-If low reasoning appears to reduce quality, mention that in main-thread status or the final response so this preference can be revisited.
-
-If the reasoning override is unsupported or launch fails because of the effort override, retry with default reasoning settings and note the fallback.
+If a cost override is unsupported or the launch fails because of it, retry with runtime defaults and note the fallback. If the low setting appears to be reducing quality, say so in main-thread status so this preference can be revisited.
 
 ## When To Propose Subagents
 
@@ -86,7 +80,9 @@ Avoid subagents for:
 
 The agent may propose subagents for bounded code inspection, implementation, review, or research.
 
-When active AGENTS or developer instructions require delegation by default, delegate bounded work without asking for extra approval unless a skip condition or higher risk approval case applies. Otherwise, ask for explicit user approval before spawning subagents unless the user has already explicitly asked for subagents or parallel agent work.
+Delegate bounded work without asking for extra approval unless a skip condition or higher-risk approval case applies.
+
+This skill is the user's delegation policy. Where a runtime ships a blanket default such as "do not delegate unless asked", treat that as the runtime's baseline for users who have expressed no preference, and this skill as the expressed preference that replaces it. Higher-risk approval cases below still require asking, and an explicit in-session instruction from the user still wins over both.
 
 Always ask for explicit user approval before delegating work that may:
 
@@ -130,6 +126,7 @@ A subagent prompt should include:
 
 - bounded workstream
 - exact task
+- the skills or guidance references to load, named explicitly. Delegated workers only reliably load a skill when the prompt names it.
 - relevant paths, artifacts, logs, or diffs
 - whether edits are allowed
 - boundaries and files not to touch

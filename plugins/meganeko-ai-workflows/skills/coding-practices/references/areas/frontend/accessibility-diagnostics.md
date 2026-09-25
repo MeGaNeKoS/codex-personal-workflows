@@ -2,6 +2,22 @@
 
 Use this before committing UI changes that add or modify interactive controls, color semantics, forms, navigation, dialogs, tables, or application shell structure.
 
+This file owns frontend accessibility: the design-time baseline below, and the pre-commit checks that follow it. No other reference restates these rules.
+
+## Baseline
+
+Satisfy these while designing, not after. The numbered checks below verify them.
+
+- Use semantic landmarks for app shell, navigation, main content, forms, tables, dialogs, and complementary panels.
+- Implement semantic HTML first; use ARIA only to fill genuine semantic gaps.
+- Give icon-only controls accessible names and visible focus states.
+- Ensure all primary workflows can be completed with a keyboard.
+- Manage focus for dialogs, drawers, menus, popovers, and route changes.
+- Do not communicate state by color alone.
+- Tie form labels, descriptions, validation messages, and errors to their fields.
+- Keep touch targets large enough for mobile interaction.
+- Prefer native controls when they satisfy the interaction.
+
 ## 1. Check Semantics First
 
 Prefer native HTML controls and landmarks before adding ARIA.

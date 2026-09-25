@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Delivery"
+  short_description: "Research, design, implement, and verify frontend UI."
+  default_prompt: "Use $frontend-delivery to research, plan, implement, and verify this frontend interface."

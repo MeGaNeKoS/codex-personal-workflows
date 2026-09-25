@@ -21,6 +21,53 @@ Use this reference when assigning backend responsibilities, choosing repository 
 - Treat external systems as outbound clients even when they return data: third-party APIs, other services, SaaS or vendor systems, identity providers, remote license services, notification providers, and authorization services.
 - Keep repository and outbound ports owned near the service or domain side; keep concrete adapters in infrastructure.
 
+The test is **ownership of the data, not whether it returns rows**:
+
+```text
+Repository (we own the storage)         Outbound (someone else owns the system)
+----------------------------------      --------------------------------------
+orders table in our Postgres            Stripe charges API
+our S3 bucket of invoice PDFs           Auth0 user profile lookup
+our internal durable job queue          another team's service, even internal
+our analytics event table               SendGrid delivery status
+
+Both return data. Only the left column is a repository.
+```
+
+Why it matters: an outbound client can fail, rate-limit, change contract, or go down independently. Its failures are normalized into product errors by the calling service. A repository failure is usually infrastructure failure of something you control.
+
+```text
+Wrong: UserRepository.findById() that calls the Auth0 API.
+       Named "repository", so retries and outages are never designed for.
+
+Right: AuthorizationClient.fetchProfile() behind an outbound port.
+       The service maps its timeout into a product error.
+```
+
+## Thin Transport, Applied
+
+```ts
+// Wrong: handler owns business rules, storage, and error shape.
+app.post('/orders', async (req, res) => {
+  const items = req.body.items
+  if (items.length > 50) return res.status(400).json({ e: 'too many' })
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0)
+  if (total > 100_000) return res.status(400).json({ e: 'limit' })
+  await db.query('INSERT INTO orders ...')
+  res.json({ ok: true })
+})
+
+// Right: decode, call one owner, map result and error.
+app.post('/orders', async (req, res) => {
+  const command = PlaceOrderRequest.parse(req.body)   // decode at boundary
+  const result = await orderService.place(command)    // one owning service
+  if (!result.ok) return problem(res, result.error)   // one error formatter
+  res.status(201).json(toOrderResponse(result.value))
+})
+```
+
+The order limits are product rules, so they belong to the service or domain, where they are testable without HTTP.
+
 ## Real-Boundary Abstraction
 
 - Abstract real boundaries, not every helper.
@@ -36,3 +83,13 @@ Use this reference when assigning backend responsibilities, choosing repository 
 - Do not use a barrel, alias, callback, cast, context, or service locator to conceal a forbidden dependency.
 - Keep production code independent of test code.
 - Stop when a requested edge has no declared owner or violates the dependency graph; resolve ownership explicitly.
+
+## Failure Modes
+
+- State the failure modes a design or brief must cover before implementation: timeout, retry, partial write, crash midway, and dependency down, and the behavior in each case.
+- This is a design question, not a constraint on the order code gets typed in.
+
+## Idempotent Writes
+
+- State how a repeat is detected for anything that writes: a handler, a queue consumer, or a retried outbound call. An idempotency key, an upsert, or a state check are all valid; if none applies, state why the write can't repeat.
+- Reads are exempt.

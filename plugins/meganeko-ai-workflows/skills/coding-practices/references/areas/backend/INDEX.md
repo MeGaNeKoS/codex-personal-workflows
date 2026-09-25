@@ -15,6 +15,7 @@ Select every row matched by the change. An explicit **Also load** instruction in
 | Composition root, mandatory dependency construction, long-lived clients, dependency aggregation, startup, shutdown, or runtime lifecycle | [Composition And Lifecycle](./composition-and-lifecycle.md) |
 | Backend files, modules, public roots, constants, responsibility-based splitting, or names | [Modules And Naming](./modules-and-naming.md) |
 | Product error shape, stable error codes, response formatting, or transport error mapping | [Errors And Responses](./errors-and-responses.md) |
+| A new table, index, or query; a database migration | [Schema And Migrations](./schema-and-migrations.md) |
 | Unit or integration responsibility, fakes, wiring tests, adapter tests, or migration compatibility | [Testing](./testing.md) |
 
 Also load the focused language references matching the implementation concerns. The backend branch owns responsibility placement and dependency direction; the active language reference owns language-specific parsing, validation, construction, type, cast, and escape-hatch mechanics. Load the active framework/library reference for concrete runtime mapping and the active protocol reference for wire-specific contracts and behavior.

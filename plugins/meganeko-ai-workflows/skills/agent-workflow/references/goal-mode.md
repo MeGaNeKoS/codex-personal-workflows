@@ -48,7 +48,7 @@ If the user corrects the understanding, revise it before starting goal mode.
 
 When goal mode is approved:
 
-1. Create the goal with the approved objective.
+1. Record the approved objective in the most durable tracker the runtime offers: a first-class goal primitive, a task list, a plan artifact, or a committed file. A goal that exists only in conversation history does not survive compaction.
 2. Record acceptance criteria as the working completion standard.
 3. Identify constraints, non-goals, risks, and verification requirements.
 4. Build a concise execution checklist.

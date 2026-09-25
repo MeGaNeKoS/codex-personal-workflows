@@ -4,14 +4,12 @@ Use this reference when a change adds, moves, or connects frontend responsibilit
 
 ## Required Change Map
 
-Before editing, identify:
+The change map is required before editing here. It is defined once, with a worked example, in [Core Practices](../../core.md).
 
-1. each changed responsibility and its participating owner;
-2. each dependency edge added, removed, or relied upon;
-3. each affected trust or representation boundary; and
-4. the public test seam for every changed responsibility.
+Two frontend-specific additions:
 
-Use repository names and layout when their contracts are clear. A newly proposed owner or edge is an architecture decision, not an implementation detail.
+- Use repository names and layout when their contracts are clear.
+- A newly proposed owner or edge is an architecture decision, not an implementation detail. Resolve it before editing, using the owner table and dependency graph below.
 
 ## Production Owners
 
@@ -51,10 +49,6 @@ tests                     -> the owner or public seam under test
 
 ## Enforcement
 
-The declared graph in this file is the canonical policy. Enforcement only proves that policy; it does not define a second graph.
+The declared graph above is the canonical policy.
 
-- Use the repository's existing import-boundary, module-graph, lint, compiler, or build checks when available. Update the configuration owner when the intended graph changes.
-- When no dedicated boundary tool exists, verify affected imports with the narrowest reproducible repository command and a targeted import search. Record any edge that remains manually verified.
-- Keep exceptions narrow, named, owned, and time-bounded when the repository supports expiry metadata. Never use wildcard ignores or a barrel to conceal an exception.
-- A baseline records known violations only when the repository already uses that migration mechanism. New violations fail the change.
-- Report the exact command or inspection used. Do not claim dependency enforcement without executable or reviewable evidence.
+**Also load:** [Dependency Enforcement](./dependency-enforcement.md) when configuring import checks, recording an exception, or resolving a forbidden edge.

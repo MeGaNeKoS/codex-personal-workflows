@@ -1,6 +1,8 @@
 # Context Hygiene
 
-Use `compact_context` at clear context-management boundaries. Do not request compaction after every small task, merely because the conversation is long, or repeatedly without meaningful new work.
+Compact at clear context-management boundaries. Do not compact after every small task, merely because the conversation is long, or repeatedly without meaningful new work.
+
+This reference owns **when** to compact and **what to preserve**. It does not name a compaction mechanism. Use whatever the active runtime provides: an explicit compaction tool, a user-facing command the agent can recommend, or automatic compaction the agent can only prepare for. If the runtime has a provider-specific workflow skill, it owns that mapping.
 
 Compaction reduces stale or noisy context while preserving the information needed to continue correctly. It is not a substitute for asking clarification when the user intent is unclear.
 
@@ -104,4 +106,4 @@ Do not use clarification as a replacement for compaction, and do not use compact
 
 ## Fallback
 
-If `compact_context` is not available, continue normally and avoid pretending compaction happened.
+If the agent cannot trigger compaction itself, do not pretend compaction happened. Do the part that is always available: write the durable handoff into a real artifact, then tell the user a compaction boundary has been reached and what to preserve. A recorded handoff survives compaction whether the agent or the runtime performs it.

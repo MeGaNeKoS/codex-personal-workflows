@@ -4,18 +4,7 @@ Use this procedure when a source codebase, live product, design file, recording,
 
 ## Evidence Rules
 
-Label every conclusion **Observed**, **Inferred**, **Proposed**, or **Unknown**:
-
-- **Observed:** directly established by cited source, configuration, test, runtime, or user-provided artifact/input.
-- **Inferred:** reasoned from cited observations, with the reasoning stated; not presented as direct fact.
-- **Proposed:** a target-design recommendation or choice, not reference behavior.
-- **Unknown:** not established; record what was inspected, the concrete blocker, and the evidence needed.
-
-Prefer evidence in this order: source/tests, runtime, design files, recordings/screenshots, descriptions. A visual resemblance does not prove component composition, ownership, semantics, state, or persistence.
-
-For each runtime claim, record revision/build, environment and viewport, inputs, feature flags, permissions, fixtures/data, and exact verification procedure. For each source claim, record repository revision and file/symbol or test. Every factual claim must point to evidence. Subjective transfer recommendations are **Proposed**.
-
-Apply this guarantee: identical accessible source/config/tests/runtime, revision, environment, inputs, flags, fixtures, and procedure must yield identical factual behavior conclusions. Resolve conflicting factual conclusions with source, configuration, tests, or runtime. If resolution is blocked, record the conflict and concrete blocker. An **Unknown** must say what was inspected, why it could not be established, and what evidence would resolve it.
+Apply the labels, evidence hierarchy, per-claim recording requirements, and process guarantee from [evidence-contract.md](./evidence-contract.md). That file owns the contract; this file owns only the research procedure and artifact structure.
 
 ## Research Record
 

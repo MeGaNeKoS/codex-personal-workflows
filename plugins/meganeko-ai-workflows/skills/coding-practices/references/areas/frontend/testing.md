@@ -1,6 +1,6 @@
 # Frontend Testing
 
-Use this reference to select verification seams for changed frontend behavior. Test placement follows repository convention; test responsibility follows the production owner.
+Use this reference to select verification seams for changed frontend behavior. Test placement follows repository convention; test responsibility follows the production owner. Convention decides the location only; the test file rule itself belongs to [Core Practices](../../core.md).
 
 | Changed responsibility | Primary evidence |
 | --- | --- |
@@ -15,7 +15,7 @@ Use this reference to select verification seams for changed frontend behavior. T
 - Control clocks, schedulers, network completions, and identifiers at their owning seam. Cover stale-result, cancellation, retry, and synchronization behavior when present.
 - Verify loading, empty, partial, stale, error, permission, disabled, and validation states that the changed workflow can reach.
 - Test public behavior rather than component internals, store implementation details, or private helper call order.
-- Use the active frontend-design workflow for responsive, visual, keyboard, focus, announcement, and browser-console evidence. This reference owns test seams, not visual standards.
+- Use the active frontend-delivery workflow for responsive, visual, keyboard, focus, announcement, and browser-console evidence. This reference owns test seams, not visual standards.
 - Run the narrowest relevant tests during iteration, then the repository's required frontend typecheck, test, build, and browser verification gates before completion.
 
 **Also load for TypeScript:** [Type Contract Tests](../../languages/typescript/type-contract-tests.md) when correctness depends on non-assignability, inference, schema-output relationships, or exhaustiveness.
