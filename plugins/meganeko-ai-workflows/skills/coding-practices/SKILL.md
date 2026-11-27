@@ -9,13 +9,13 @@ Router, plus the Scope Test below. Every other rule has exactly one owning file.
 
 ## Every Code Change
 
-Before any code change, however small, load [Readability](./references/readability.md) and [Function Shape](./references/function-shape.md). They hold the rules that make code explain itself without comments: names, constants, control flow, comments, the order a new function is written in, and one job per function.
+Before any code change, however small, load [Readability](./references/readability.md) and [Function Shape](./references/function-shape.md). They hold the rules that make code explain itself without comments: names, constants, control flow, comments, the order a new function is written in, and one job per function. A change that adds a function, or changes which function calls which, also loads [What Exists](./references/what-exists.md), for listing the functions and types a module and a library already hold.
 
 ## Scope Test
 
 **Non-trivial** means the change crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior. Adding code to a file already over 1000 lines, or adding a new behavior area to a test file, is also non-trivial.
 
-Anything else is trivial: match repository style, and load nothing beyond the two files above. Guidance elsewhere saying "substantial" or "significant" means this definition.
+Anything else is trivial: match repository style, and load nothing beyond what Every Code Change names. Guidance elsewhere saying "substantial" or "significant" means this definition.
 
 ## Load For Non-Trivial Work
 

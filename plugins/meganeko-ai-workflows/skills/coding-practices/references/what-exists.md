@@ -1,6 +1,6 @@
 # What Exists
 
-Load before adding a function or a type, and when reviewing one that was added. It owns how to find out what a module and a library already hold without reading their files.
+Load before a change that adds a function or changes which function calls which, and when reviewing one. It owns how to find out what a module and a library already hold without reading their files.
 
 ## List A Module
 
@@ -23,7 +23,7 @@ session.go:113  const  main subagentsFolderName- -
 all_sessions.go:8  struct  main sessionAgents- -
 ```
 
-A `-` stands for a missing signature or return type. `ctags` means Universal Ctags. Add `--exclude=<pattern>` for test files and for generated or vendored directories.
+A `-` stands for a missing signature or return type. `ctags` means Universal Ctags. Add `--exclude=<pattern>` for test files and for generated or vendored directories; with `rg` that is `--glob '!<pattern>'`, placed after the other globs.
 
 ## Filter, Do Not Read
 
@@ -53,20 +53,22 @@ To check one name across the whole repository, run `rg -n -w '<name>'`.
 
 ## What A Library Offers
 
-Before writing a helper for something a library the project already uses might do, look at the library. The architecture document's Libraries section, or the project's manifest, says which libraries those are. Run these from the project's root, in the environment the project runs in, and filter a long answer by the noun as above.
+Before writing a helper for something a library the project already uses might do, look at the library. The architecture document's Libraries section, or the project's manifest, says which libraries those are. Run these from the project's root, in the environment the project runs in. Filter a long answer by the noun here too: the two `rg` commands take the pattern above, and `go doc` and `pydoc`, which print no line numbers, take a plain `rg -i '<noun>'`.
 
 ```bash
 # Go: the package, then one name in it
 go doc <package>
 go doc <package>.<Name>
-# Rust: the public items of a crate, from its source under the cargo registry
-rg -n '^\s*pub (async |const |unsafe )*(fn|struct|enum|trait|type|const|static|mod) \w+' --glob '*.rs' ~/.cargo/registry/src/*/<crate>-<version>/src
+# Rust: the public items of a crate, from its source under the cargo registry (Cargo.lock has the version)
+rg -n '^\s*(pub (async |const |unsafe )*(fn|struct|enum|trait|type|const|static|mod|use) |macro_rules! )\w+' --glob '*.rs' ~/.cargo/registry/src/*/<crate>-<version>/src
 # Python: the module, then one name in it
 python -m pydoc <module>
 python -m pydoc <module>.<name>
 # TypeScript: the declarations a package ships
 rg -n '^\s*(export )?(default )?(declare )?(abstract )?(function|const|let|class|interface|type|enum|namespace) \w+' --glob '*.d.ts' --glob '*.d.mts' --glob '*.d.cts' node_modules/<package>
 ```
+
+The Rust lookup lists a public trait but not the trait's methods, which carry no `pub`. Read the trait at the listed line.
 
 ## Without Ctags
 
