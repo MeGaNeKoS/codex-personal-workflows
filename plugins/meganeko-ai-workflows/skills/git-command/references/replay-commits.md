@@ -1,30 +1,22 @@
 # Replay Commits
 
-Use this when initializing Git history from an already-finished or partially-finished tree.
+Use this when a tree that is already finished, or partly finished, has to become a Git history. Build a series of commits a reviewer can read one at a time, not one commit holding the final state.
 
-Create replay-style commits instead of one giant final-state commit.
+- One commit per owner or concern, in the order a reader needs them: project setup first, then each layer or feature before the code that depends on it, documentation last. Take the groups from the tree's own top level structure.
+- Prefer a commit that makes sense on its own over reconstructing the order the work really happened in.
+- Subjects, scopes, and bodies follow `conventional-commits.md`. Staging follows Safety in `SKILL.md`: name the files of each group, and check `.gitignore` before the first `git add`.
+- Set author and committer dates only when the user asks for them, with `GIT_AUTHOR_DATE` and `GIT_COMMITTER_DATE` on each commit.
+- Whether every commit must build is the user's choice. When they want it, build at each commit and say that this takes longer. Otherwise build the final commit only.
+- When the last group is committed, `git status --short` prints nothing: every file of the tree that is not ignored is in the history.
 
-- Stage coherent ownership groups such as workspace setup, schema, repository, auth, management API, bootstrap tooling, deployment docs, error handling, and lifecycle.
-- Prefer conceptual, reviewable commits over perfect chronological archaeology.
-- Use Conventional Commit subjects for each replay commit.
-- Add short bodies only for security, deployment, migration, lifecycle, bootstrap, or architecture boundary context.
-- Adjust author and committer dates when requested so the history reads like work progressed over time.
-- Avoid committing generated build output, local secret files, transient tool output, or ignored dev state. Verify `.gitignore` before staging.
-- If the user requires every replay commit to build, say that this takes longer and verify each commit. Otherwise, verify the final reconstructed history.
-
-Suggested sequence for a finished backend service:
+Example for a backend service. Take the scopes and the order from the actual tree:
 
 ```text
 chore(workspace): initialize service workspace
 feat(schema): add database schema and migrations
-feat(repository): add storage access layer
+feat(storage): add storage access layer
 feat(auth): add login and token issuance
-feat(management): add management api
-feat(bootstrap): add explicit bootstrap tool
-feat(deploy): add dev docker integration
-feat(errors): add problem json error contract
-feat(lifecycle): add readiness and panic boundary
-docs: document local usage and operational behavior
+feat(api): add management endpoints
+feat(deploy): add container build
+docs: document local usage
 ```
-
-Adapt scopes and ordering to the actual tree.
