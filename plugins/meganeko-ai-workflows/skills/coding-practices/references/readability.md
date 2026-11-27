@@ -1,6 +1,6 @@
 # Readability: Names, Constants, Control Flow, And Comments
 
-Load before any code change. Whoever reads the code later has only the code, so it explains itself through its names and its shape, with no comment doing that job. Cross-cutting: applies to any area or language.
+The detail and examples behind the [Coder Card](./coder-card.md)'s lines on names, constants, control flow, and comments. Whoever reads the code later has only the code, so it explains itself through its names and its shape, with no comment doing that job. Cross-cutting: applies to any area or language.
 
 ## Names
 

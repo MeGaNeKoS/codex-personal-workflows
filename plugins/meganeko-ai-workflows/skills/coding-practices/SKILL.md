@@ -9,17 +9,19 @@ Router, plus the Scope Test below. Every other rule has exactly one owning file.
 
 ## Every Code Change
 
-Before any code change, however small, load [Readability](./references/readability.md) and [Function Shape](./references/function-shape.md). They hold the rules that make code explain itself without comments: names, constants, control flow, comments, the order a new function is written in, and one job per function. A change that adds a function, or changes which function calls which, also loads [What Exists](./references/what-exists.md), for listing the functions and types a module and a library already hold.
+Before any code change, however small, load the [Coder Card](./references/coder-card.md) and work from it. It states every rule for writing code in one line and names the file that owns each. Open an owning file only when a line is unclear or your brief names it.
+
+Reviewing code, and writing a brief or a change map, load the owning files in full: [Readability](./references/readability.md), [Function Shape](./references/function-shape.md), [What Exists](./references/what-exists.md), and [Core Practices](./references/core.md).
 
 ## Scope Test
 
 **Non-trivial** means the change crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior. Adding code to a file already over 1000 lines, or adding a new behavior area to a test file, is also non-trivial.
 
-Anything else is trivial: match repository style, and load nothing beyond what Every Code Change names. Guidance elsewhere saying "substantial" or "significant" means this definition.
+Anything else is trivial: match repository style, and load nothing beyond the card. Guidance elsewhere saying "substantial" or "significant" means this definition.
 
 ## Load For Non-Trivial Work
 
-1. [Core Practices](./references/core.md), for who decides structure, the change map, and the universal gates.
+1. [Core Practices](./references/core.md), for who decides structure, the change map, and the universal gates. A coder building inside a change map it was given works from the card and skips this.
 2. Every branch matched below. Branches compose. Activating a branch does not load all of it; each index selects its own leaves.
 3. [Architecture Document](./references/architecture-document.md), only when the change writes or changes the project's architecture document.
 4. When designing a new project, before proposing any structure: 1 and 2 above, plus the layout its area branch owns. For a backend that is [Backend Project Layout](./references/areas/backend/project-layout.md).
