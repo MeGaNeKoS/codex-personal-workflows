@@ -1,6 +1,6 @@
 ---
 name: coding-practices
-description: Use before writing, changing, refactoring, or reviewing code, however small. Naming, comments, control flow, and function shape apply to every code change, including a one line fix or a rename. For a change that crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior, it also covers who decides structure, ownership, dependency direction, boundaries, test seams, backend, frontend, and command line structure, and language, framework, and protocol rules. Use api for the HTTP error body (RFC 9457 problem+json) and its OpenAPI schema.
+description: Use before designing a new project or proposing a codebase structure, folder layout, module split, or architecture document, even when no code is written yet, and before writing, changing, refactoring, or reviewing code, however small. Naming, comments, control flow, and function shape apply to every code change, including a one line fix or a rename. For a change that crosses files or owners, introduces a contract or abstraction, or changes state, persistence, transport, framework, or domain behavior, it also covers who decides structure, ownership, dependency direction, boundaries, test seams, backend, frontend, and command line structure, and language, framework, and protocol rules. Use api for the HTTP error body (RFC 9457 problem+json) and its OpenAPI schema.
 ---
 
 # Coding Practices
