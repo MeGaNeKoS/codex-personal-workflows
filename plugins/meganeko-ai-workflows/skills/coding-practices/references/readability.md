@@ -110,61 +110,52 @@ func needsCharge(order Order) bool {
 
 ## Comments
 
-**Default to no comment.** A comment is usually a signal that something failed to be expressed in the code itself. Fix the code first.
-
-Before writing a comment, try in this order:
+**Write no comments.** A comment you want to write means the code failed to say something. Make the code say it, trying in this order:
 
 1. a more precise name;
 2. a named constant instead of a literal;
 3. an extracted, named function for the confusing block;
-4. a type that makes the invariant explicit.
+4. a type that makes the invariant explicit;
+5. a test, named for the rule, that fails when the rule is broken.
 
-If any of those removes the need, do that instead. A reader trusts a name more than a comment, and a name cannot drift out of date.
+A reader trusts a name more than a comment, and a name cannot drift out of date.
 
-### The Narrow Exception
-
-Write a comment only for a case in this table. The test: if a reader with only the code could answer "why is it this way", delete the comment.
-
-| Case | Why code cannot carry it |
-| --- | --- |
-| An external system forced the shape | the vendor, protocol, or browser quirk is not visible here |
-| The obvious approach was tried and broke | the absence of that approach is invisible |
-| An invariant is enforced somewhere the reader cannot see | the guarantee lives in another module |
-| A constant was measured or tuned, not derived | the number's provenance is not in the number |
-| A tool reads it: a lint or type suppression, a build tag, a license header | the tool needs it in place |
-
-Keep it to one or two lines. State the fact, not the narration. A suppression names what it silences and why, on the same line.
+The cases that feel like exceptions are not. A quirk an external system forces goes in a function named for the quirk. An approach that was tried and broke, an invariant kept in another module, and a tuned constant each get a name or a test that says so.
 
 ```ts
-// Wrong: restates the code. Deleting it loses nothing.
+// Wrong: restates the code.
 // increment the counter
 counter += 1
 
-// Wrong: a comment patching a bad name. Rename instead.
+// Wrong: a comment patching a bad name.
 // number of minutes before the session expires
 const t = 30
 
-// Right: the road not taken, so nobody "simplifies" it back.
+// Wrong: the reason lives in a comment, and nothing fails when someone "simplifies" the loop.
 // Not Promise.all: the storage provider rejects parallel part uploads to one key.
 for (const part of parts) await upload(part)
+
+// Right: the name states the constraint, and the test `provider rejects parallel part uploads` guards it.
+await uploadPartsOneAtATime(parts)
 ```
+
+### What Stays
+
+Two things use comment syntax and stay:
+
+- **A directive a tool acts on**: a build tag, an embed or lint pragma, a type suppression, a license header the project requires. Removing it changes what the tool does. A suppression names what it silences, on the same line.
+- **A note on code shaped by a measured speed optimization**: one or two lines saying which plain form was too slow and what was measured. Without a measurement, write the plain form.
 
 ### Never
 
 - Restating the statement below it.
 - Parameter lists that repeat the signature.
-- Section banners, decorative dividers, or step numbering in readable code.
+- Section banners, decorative dividers, or step numbering.
 - Attribution, dates, ticket numbers, or changelog entries. Version control owns those.
 - The task, the brief, the request, or the conversation that led to the code.
 - Commented-out code. Delete it; history has it.
-- Doc comments that only repeat the symbol's name and types.
-
-### Doc Comments
-
-Only on exported symbols whose contract is not obvious from name and signature, and only for what the signature cannot state: a precondition the caller must satisfy, or what happens on failure. Not on every export.
-
-Document the contract, never the implementation, so it survives a rewrite of the body.
+- Doc comments. A symbol's contract is in its name, its signature, and its types. Where a project's tooling fails the build without one, it is a directive: one line, the contract only.
 
 ### Maintenance
 
-A stale comment is worse than none, because it is trusted. When changing code, update or delete the comments describing it in the same edit. Deleting is usually the right call.
+When changing code, delete any comment that describes it, in the same edit, unless it is one of the two that stay.

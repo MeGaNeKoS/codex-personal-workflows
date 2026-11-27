@@ -33,7 +33,7 @@ A new file inside an existing module, for a responsibility that module already h
 - Export only what code outside the module uses, in this change or already. Everything else stays private to its file or module.
 - Prefer existing language, platform, framework, and repository primitives over a new library. For a concern the architecture document lists a library for, use that library. A new library is a decision under Who Decides: when the work seems to need one the task did not name, report what it is for and what it would replace, and do not add it.
 - Do not create vague cross-owner buckets such as `utils`, `helpers`, or `common`. Use a named responsibility or a repository-designated neutral primitive family.
-- Default to no comment. The allowed cases and the test are in [Readability](./readability.md).
+- Write no comments. The two things that stay are in [Readability](./readability.md).
 - Code that runs in only one context (server only, browser only, inside a request, inside a transaction) learns that from one named place, such as a parameter or a single `isServer` module, never from checks scattered through the code.
 
 ## The Change Map
