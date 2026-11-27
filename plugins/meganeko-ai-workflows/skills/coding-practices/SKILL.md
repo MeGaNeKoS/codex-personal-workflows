@@ -9,7 +9,7 @@ Router, plus the Scope Test below. Every other rule has exactly one owning file.
 
 ## Every Code Change
 
-Before any code change, however small, load [Readability](./references/readability.md) and [Function Shape](./references/function-shape.md). They hold the rules that make code explain itself without comments: names, constants, control flow, comments, and one job per function.
+Before any code change, however small, load [Readability](./references/readability.md) and [Function Shape](./references/function-shape.md). They hold the rules that make code explain itself without comments: names, constants, control flow, comments, the order a new function is written in, and one job per function.
 
 ## Scope Test
 
@@ -21,6 +21,7 @@ Anything else is trivial: match repository style, and load nothing beyond the tw
 
 1. [Core Practices](./references/core.md), for who decides structure, the change map, and the universal gates.
 2. Every branch matched below. Branches compose. Activating a branch does not load all of it; each index selects its own leaves.
+3. [Architecture Document](./references/architecture-document.md), only when the change writes or changes the project's architecture document.
 
 | Branch | Load when |
 | --- | --- |

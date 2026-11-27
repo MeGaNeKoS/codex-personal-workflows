@@ -14,7 +14,7 @@ Structure is decided before the code, by whoever holds the whole picture. The co
 
 "Ask" in this skill means: ask the lead when you have one, and the user when you do not.
 
-The declared owners and the allowed dependencies live in the project's architecture document: `ARCHITECTURE.md` at the project root, unless the project's instructions name another file. Read it before your first change in a repository. Where a project has none, the existing code is the declaration: follow its structure and do not invent a second one. A new project gets its architecture document before its first code. If it has none, ask for it.
+The declared owners and the allowed dependencies live in the project's architecture document: `ARCHITECTURE.md` at the project root, unless the project's instructions name another file. Read it before your first change in a repository. It also names the library the project uses for each concern and the command that lists a module's functions; its format is in [Architecture Document](./architecture-document.md). Where a project has none, the existing code is the declaration: follow its structure and do not invent a second one. A new project gets its architecture document before its first code. If it has none, ask for it.
 
 These are decisions, and you ask before making any of them:
 
@@ -28,16 +28,17 @@ A new file inside an existing module, for a responsibility that module already h
 ## General Engineering
 
 - Match existing repository style and keep changes scoped to the requested behavior before introducing a new convention.
+- Reuse before writing. A function or type that already does the job, in your module or in one it may call, is used and not written again. Looking is the first step of [Function Shape](./function-shape.md).
 - Name domain concepts, protocol values, limits, defaults, and operational constants instead of scattering unexplained primitives. Keep each named value with the owner of the rule it expresses. Obvious indices and arithmetic identities stay inline. Detail in [Readability](./readability.md).
 - Export only what code outside the module uses, in this change or already. Everything else stays private to its file or module.
-- Prefer existing language, platform, framework, and repository primitives over a new library. A new library is a decision under Who Decides: when the work seems to need one the task did not name, report what it is for and what it would replace, and do not add it.
+- Prefer existing language, platform, framework, and repository primitives over a new library. For a concern the architecture document lists a library for, use that library. A new library is a decision under Who Decides: when the work seems to need one the task did not name, report what it is for and what it would replace, and do not add it.
 - Do not create vague cross-owner buckets such as `utils`, `helpers`, or `common`. Use a named responsibility or a repository-designated neutral primitive family.
 - Default to no comment. The allowed cases and the test are in [Readability](./readability.md).
 - Code that runs in only one context (server only, browser only, inside a request, inside a transaction) learns that from one named place, such as a parameter or a single `isServer` module, never from checks scattered through the code.
 
 ## The Change Map
 
-Four lines that fix the structure of a non-trivial change before any edit.
+Five lines that fix the structure of a non-trivial change before any edit.
 
 ```text
 Responsibility : which owner gains or loses behavior
@@ -45,6 +46,8 @@ Dependency     : each edge added, removed, or relied on, its direction,
                  and any edge that must not be added
 Boundary       : where trust or representation changes, and who converts
 Seam           : the public test seam for each changed responsibility
+Reuse          : the existing functions and types the change calls,
+                 each with its file
 ```
 
 Worked example, adding "export invoices as CSV" to a billing feature:
@@ -58,9 +61,13 @@ Dependency     : billing/export -> csv primitive        (allowed, neutral)
 Boundary       : Invoice (domain-safe) -> CSV rows (external representation),
                  converted in billing/export, not inside the csv primitive.
 Seam           : billing/export public function, given fixture invoices.
+Reuse          : csv/encode encodeRows; billing/invoice Invoice, InvoiceLine,
+                 listInvoices.
 ```
 
 The forbidden edge is the point. If the CSV primitive needed to know about invoices, it is not a neutral primitive and the split is wrong.
+
+The Reuse line is written from the list of what the module holds, never from memory. It is a floor: whoever builds still looks before adding a function, as [Function Shape](./function-shape.md) says.
 
 The map uses four words in a fixed sense:
 
