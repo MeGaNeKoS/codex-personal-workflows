@@ -1,5 +1,7 @@
 # Frontend UI Patterns
 
+Use when a change adds or alters interaction states, forms and mutations, or tables and other data views.
+
 ## Interaction States
 
 - Show loading, refreshing, empty, no-results, failed, retryable, permission denied, unavailable, not configured, disabled with reason, validation failed, stale data, partial data, and pending mutation states close to affected content.
@@ -28,11 +30,7 @@
 
 ## Accessibility Checks
 
-- Use visible focus states and accessible names for icon-only controls.
-- Manage focus for dialogs, drawers, menus, popovers, and route changes.
-- Keep touch targets large enough for mobile interaction.
-- Do not communicate state by color alone.
-- Tie form labels, descriptions, validation messages, and errors to their fields.
+Accessibility rules are owned by [Accessibility](./accessibility-diagnostics.md). **Also load:** that file when a change adds or modifies a control, a form, a dialog, or color that carries meaning.
 
 ## Verification
 

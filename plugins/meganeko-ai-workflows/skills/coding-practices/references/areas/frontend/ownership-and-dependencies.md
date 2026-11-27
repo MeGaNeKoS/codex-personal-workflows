@@ -4,12 +4,12 @@ Use this reference when a change adds, moves, or connects frontend responsibilit
 
 ## Required Change Map
 
-The change map is required before editing here. It is defined once, with a worked example, in [Core Practices](../../core.md).
+A change map is required before editing here. [Core Practices](../../core.md) defines it, with a worked example, and says who writes it.
 
 Two frontend-specific additions:
 
 - Use repository names and layout when their contracts are clear.
-- A newly proposed owner or edge is an architecture decision, not an implementation detail. Resolve it before editing, using the owner table and dependency graph below.
+- A newly proposed owner or edge is an architecture decision, not an implementation detail. Ask before editing, as Core Practices describes; the owner table and dependency graph below say what is already allowed.
 
 ## Production Owners
 
@@ -44,8 +44,8 @@ tests                     -> the owner or public seam under test
 - Keep feature internals private and exports narrow.
 - Peer features do not import each other's internals. Application composition owns deliberate cross-feature coordination.
 - Production code never depends on test code.
-- A barrel, alias, callback, context, store, cast, or service locator does not make a forbidden edge valid.
-- Stop when the requested edge is outside the declared graph. Resolve the owner or dependency decision explicitly.
+- A forbidden edge stays forbidden however it is reached. The gate is in [Core Practices](../../core.md).
+- Stop when the requested edge is outside the declared graph, and ask, as Core Practices describes.
 
 ## Enforcement
 

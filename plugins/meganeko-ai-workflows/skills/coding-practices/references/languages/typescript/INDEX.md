@@ -1,6 +1,6 @@
 # TypeScript/JavaScript Language
 
-Use this branch for TypeScript/JavaScript code in frontend or backend contexts, API clients, validation, state modules, component props, event contracts, generated client usage, type safety, build configuration, and dependency choices.
+Use this branch for TypeScript/JavaScript code in frontend or backend contexts, API clients, validation, state modules, component props, event contracts, generated client usage, type safety, build configuration, and library choices.
 
 ## Routing
 
@@ -28,4 +28,4 @@ Apply in this order; a later step never substitutes for an earlier one.
 - Untrusted input is `unknown` until a runtime parser establishes its contract.
 - No `any`, direct assertion, or double cast hides a boundary, product-model, or generic-relationship problem.
 - A declaration, generated interface, assertion, or `enum` does not validate runtime data.
-- When the correct contract requires a product or API decision, ask the user instead of encoding an assumption.
+- When the correct contract requires a product or API decision, ask instead of encoding an assumption: the lead when you have one, the user when you do not.

@@ -41,10 +41,10 @@ For each changed construct, load every policy owner linked by the matching row.
 
 ## Framework Dependency Mapping
 
-- Apply the base dependency gate to browser, Svelte, and SvelteKit primitives before adding a framework-adjacent library.
-- Add a query or state library only when the selected state and integration contracts require behavior that load functions, invalidation, runes, stores, and explicit adapters do not provide.
-- Add visual framework, chart, table, or form dependencies only when established product or design-system owners cannot meet the required behavior.
-- Use the repository-approved CodeMirror integration for a full code-editing surface. A native text control remains appropriate when code-editing behavior is not required.
+- Use browser, Svelte, and SvelteKit primitives before proposing a framework-adjacent library. A new library is asked for, never added unasked, under Who Decides in [Core Practices](../../core.md).
+- Propose a query or state library only when the selected state and integration contracts require behavior that load functions, invalidation, runes, stores, and explicit adapters do not provide.
+- Propose visual framework, chart, table, or form libraries only when established product or design-system owners cannot meet the required behavior.
+- For a full code-editing surface, use the editor integration the repository already has; where it has none, that is a new library to ask about. A native text control remains appropriate when code-editing behavior is not required.
 
 ## Verification Mapping
 

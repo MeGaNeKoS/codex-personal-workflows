@@ -4,7 +4,7 @@ Use this reference when a change adds a table, index, or query, or ships a datab
 
 ## Schema Before Persistence Code
 
-- State the expected row count, the index the query uses, and the constraints before writing the persistence code for a new table or query.
+- Before writing persistence code for a new table or query, know the expected row count, the index the query uses, and the constraints. Take them from the task or the existing schema. Where they are not stated, ask; a new table, column, or index is a decision.
 
 ## Reversible Migrations
 

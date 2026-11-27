@@ -7,7 +7,7 @@ Use this reference when wiring runtime dependencies, long-lived clients, reposit
 - Use a composition root for configuration loading, telemetry and logging, client construction, repository and outbound aggregation, service construction, transport construction, lifecycle, and shutdown wiring.
 - Make mandatory dependencies explicit in constructors. Make invalid construction fail early or impossible.
 - Do not create long-lived concrete clients deep inside handlers or services.
-- Construct long-lived clients once at the owning composition seam and pass their contracts explicitly to consumers.
+- Construct long-lived clients once at the composition root and pass their contracts explicitly to consumers.
 - A composition root spans layers by design; it is gated on length like any other file, not on what it touches.
 
 ### Applied
@@ -31,7 +31,7 @@ class OrderService {
   ) {}
 }
 
-// composition root — constructed once, wired explicitly
+// composition root: constructed once, wired explicitly
 const config   = loadConfig()                       // fail early if invalid
 const pool     = new Pool(config.databaseUrl)
 const orders   = new PostgresOrderRepository(pool)  // adapter implements port
@@ -41,7 +41,7 @@ const service  = new OrderService(orders, payments, systemClock)
 onShutdown(() => pool.end())                        // shutdown owned here too
 ```
 
-The service names `Clock` rather than calling `Date.now()` because time is a real substitution seam. It does **not** inject a pure formatter — that would be ceremony, not a seam.
+The service names `Clock` rather than calling `Date.now()` because time is a real substitution seam. It does **not** inject a pure formatter: that would be ceremony, not a seam.
 
 ## Dependency Aggregation
 

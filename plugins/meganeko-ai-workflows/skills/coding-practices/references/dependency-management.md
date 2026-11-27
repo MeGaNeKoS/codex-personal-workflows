@@ -1,6 +1,8 @@
 # Dependency Management
 
-Use the project’s package manager workflow first when adding, removing, or updating dependencies.
+Whether a library may be added at all is decided under [Core Practices](./core.md): a new library is asked for, never added unasked. This file covers how to add, remove, or update one once that is settled.
+
+Use the project's package manager workflow first when adding, removing, or updating a third-party library.
 
 - Prefer the package manager command over manual manifest edits.
 - Do not guess versions.

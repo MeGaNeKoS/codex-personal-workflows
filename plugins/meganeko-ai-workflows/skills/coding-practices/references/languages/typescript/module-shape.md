@@ -12,7 +12,7 @@ Use when organizing a TypeScript domain into files, choosing `type` versus `inte
 
 ## Domain Layout
 
-For non-trivial domains, keep type declarations and behavior separate:
+Once code outside a domain uses its types, keep type declarations and behavior in separate files:
 
 ```text
 <domain>/

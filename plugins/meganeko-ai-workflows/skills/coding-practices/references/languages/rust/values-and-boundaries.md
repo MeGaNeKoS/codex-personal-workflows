@@ -12,7 +12,7 @@ Use when Rust code receives external data, defines a domain value, or handles fa
 // Wrong: interchangeable, and nothing stops the arguments being swapped.
 fn transfer(from: Uuid, to: Uuid, amount: i64)
 
-// Right: the compiler rejects a swap, and the unit is explicit.
+// Right: an account cannot be passed where an amount is expected, and the unit is explicit.
 fn transfer(from: AccountId, to: AccountId, amount: Cents)
 ```
 

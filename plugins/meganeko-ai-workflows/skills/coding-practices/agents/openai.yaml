@@ -1,4 +1,4 @@
 interface:
   display_name: "Coding Practices"
   short_description: "Scoped coding guidance with backend, frontend, language, and framework branches."
-  default_prompt: "Use $coding-practices and load only the relevant reference branch for this coding task."
+  default_prompt: "Use $coding-practices: load Readability and Function Shape for any code change, and the matching reference branches for non-trivial work."

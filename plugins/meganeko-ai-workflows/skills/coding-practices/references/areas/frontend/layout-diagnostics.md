@@ -11,7 +11,7 @@ Determine:
 - which interaction state is involved
 - whether the issue is structure, alignment, spacing, sizing, overflow, visual weight, or responsive behavior
 
-If the surface or intended layout is unclear, ask a short clarification before changing structure.
+If the surface or intended layout is unclear, ask a short clarifying question before changing structure: the lead when you have one, the user when you do not.
 
 ## 2. Preserve Layout Intent
 

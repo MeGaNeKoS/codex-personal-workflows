@@ -30,6 +30,6 @@ An exception without an owner and a reason is indistinguishable from a bug.
 
 ## Forbidden Edges
 
-When a change requires an edge outside the declared graph, stop. Resolve the ownership decision explicitly.
+When a change requires an edge outside the declared graph, stop and ask, as [Core Practices](../../core.md) describes.
 
-A barrel, alias, callback, context, store, cast, or service locator does not make a forbidden edge valid. It only makes it invisible to enforcement, which is worse than the original violation.
+Reaching a forbidden edge through a barrel, alias, callback, context, store, cast, or service locator makes it invisible to enforcement, which is worse than the original violation.

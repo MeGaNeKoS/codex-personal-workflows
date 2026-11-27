@@ -11,7 +11,7 @@ Inspect:
 - one or more during-transition states
 - the end state
 
-If the reported motion issue is unclear, ask what looks wrong: timing, direction, alignment, jitter, snapping, delay, easing, or element order.
+If the reported motion issue is unclear, ask what looks wrong (the lead when you have one, the user when you do not): timing, direction, alignment, jitter, snapping, delay, easing, or element order.
 
 ## 2. Identify The Transition Owner
 

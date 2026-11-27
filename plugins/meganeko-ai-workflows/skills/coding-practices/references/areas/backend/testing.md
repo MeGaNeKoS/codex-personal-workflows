@@ -30,7 +30,7 @@ Pick the seam from what could actually break:
 | Risk | Seam | Fakes |
 | --- | --- | --- |
 | Order total math is wrong | unit, domain | none |
-| Service calls payment before saving | unit, service | fake repository + payment port |
+| A failed payment leaves a saved order | unit, service | fake repository + payment port |
 | SQL returns wrong rows or mapping loses a field | integration, repository | real database |
 | Retry fires twice on a 503 | integration, outbound | stubbed HTTP transport |
 | 404 body is not problem+json | integration, transport | fake service raising the product error |

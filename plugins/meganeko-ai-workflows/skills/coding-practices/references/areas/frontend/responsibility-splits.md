@@ -4,7 +4,7 @@ Use when splitting one owner across modules or components while keeping that own
 
 ## When To Split
 
-Split when one file owns independently changing responsibilities, boundary code and core behavior, unrelated state transitions, or multiple test seams.
+A file wants splitting when it owns independently changing responsibilities, boundary code and core behavior, unrelated state transitions, or multiple test seams. Act on that only for the function you are already changing: extract it to the file that owns its responsibility. Splitting anything else in the file is a sweep under [Core Practices](../../core.md): name it in your report and leave it.
 
 - Preserve the same owner when extracting private modules.
 - Keep orchestration at the owner entry point and move cohesive details behind narrow local contracts.

@@ -4,13 +4,14 @@ Use this reference when splitting backend files or naming models, services, erro
 
 ## Responsibility-Based Modules
 
-- Separate data-shape definitions from behavior when a domain becomes non-trivial.
+- Group by domain first, then by role inside the domain: `orders/handler`, `orders/service`, `orders/repository`, not root folders named `handlers/`, `services/`, and `repositories/` that mix every domain. Match the repository when it already chose a layout.
+- Give data-shape definitions their own file once code outside the domain uses them.
 - Use model or type files for payloads, domain values, contracts, and DTOs.
 - Use service or use-case files for orchestration and behavior.
 - Use error files for domain-specific errors and boundary error mapping.
 - Use constants files for named domain rules, protocol values, limits, defaults, and validation rules.
-- Split by responsibility before a file becomes the default place for unrelated behavior.
-- Do not split tiny modules only to satisfy a template. Split when it improves discoverability, ownership, or reviewability.
+- Put new behavior in the file that owns its responsibility, so no file becomes the default place for unrelated behavior.
+- Do not split tiny modules only to satisfy a template. Splitting existing code you were not already changing is a sweep under [Core Practices](../../core.md): name it in your report and leave it.
 - Prefer obvious responsibility over a high file count.
 
 ## Public Surfaces

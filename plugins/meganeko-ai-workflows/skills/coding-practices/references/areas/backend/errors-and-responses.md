@@ -4,9 +4,9 @@ Use this reference when defining product errors or mapping service outcomes at a
 
 ## Product Errors
 
-- Keep product errors stable and centralized.
+- Keep product errors stable. Each domain owns its errors in its own errors file, and one mapper per protocol, at that protocol's boundary, translates them. No package collects every domain's errors.
 - Give errors a stable code, useful detail or message, and transport-independent category where the product contract requires them.
-- Let services and use cases map dependency failures into product errors rather than leaking adapter-specific failures inward.
+- Let the outbound adapter turn a dependency failure into a product error, so no vendor or driver error type reaches a service or use case.
 
 ## Boundary Mapping
 
@@ -41,18 +41,20 @@ if (!order) throw new HttpError(404, { error: 'not found' })
 if (!order) throw new OrderNotFound(orderId)
 ```
 
-Dependency failures are normalized on the way in, not leaked inward:
+Dependency failures are normalized in the adapter, not leaked inward:
 
 ```ts
-// In the service, wrapping an outbound call.
-try {
-  await this.payments.charge(order.total)
-} catch (cause) {
-  if (cause instanceof StripeTimeout) throw new PaymentUnavailable({ cause })
-  throw new PaymentRejected({ cause })
+// In the outbound adapter, the only file that knows the vendor's error types.
+async charge(total: Money): Promise<void> {
+  try {
+    await this.stripe.charges.create(toStripeCharge(total))
+  } catch (cause) {
+    if (cause instanceof StripeTimeout) throw new PaymentUnavailable({ cause })
+    throw new PaymentRejected({ cause })
+  }
 }
 ```
 
-Callers depend on `PaymentUnavailable`, never on `StripeTimeout`. Swapping the provider does not change the product contract.
+Services depend on `PaymentUnavailable`, never on `StripeTimeout`. Swapping the provider does not change the product contract.
 
 For the concrete HTTP body shape, see the `api` skill's Problem JSON reference. This file owns *where* mapping happens; that one owns *what the payload looks like*.

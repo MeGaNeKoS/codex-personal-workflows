@@ -6,12 +6,12 @@ Use this reference when a change introduces styles, adds a styling mechanism, or
 
 - Follow the project's existing styling system when it is coherent and actively used.
 - Treat changing styling systems as an architecture change; do it only when the user asks or explicitly approves it.
-- If the existing styling approach creates clear maintainability limits, stop and propose options before changing direction. Do not migrate or introduce a new styling system without user approval.
+- If the existing styling approach creates clear maintainability limits, stop and report them with options before changing direction. Do not migrate or introduce a new styling system without user approval.
 - Examples of maintainability limits include duplicated style logic across many components, uncontrolled global CSS, repeated one-off values, brittle selector chains, conflicting styling systems, or markup/style separation that makes routine UI changes risky.
 
 ## Default For New Projects
 
-For new frontends, or projects without a clear standard, prefer Tailwind. It reduces custom class naming, keeps styling close to UI structure, and works well with centralized design tokens for spacing, color, typography, layout, and responsive rules.
+For new frontends, or projects without a clear standard, propose Tailwind. It reduces custom class naming, keeps styling close to UI structure, and works well with centralized design tokens for spacing, color, typography, layout, and responsive rules. Adding it is a new library under [Core Practices](../../core.md): propose it and wait for approval.
 
 This is an author default, not an architecture rule. An existing coherent styling system always outranks it, and a project that has deliberately chosen otherwise needs no justification to keep that choice.
 
@@ -37,4 +37,4 @@ Casual mixing is the same file reaching for two systems to express one decision.
 
 When utility lists become repeated or noisy, extract shared UI components, class constants, style helpers, or design-system primitives.
 
-Extraction is a promotion decision. A repeated utility string is not by itself promotion evidence; a repeated *product-neutral* visual contract with a second consumer is. See [Ownership And Dependencies](./ownership-and-dependencies.md).
+Extraction is a promotion decision. A repeated utility string is not by itself promotion evidence; a repeated *product-neutral* visual contract with a second consumer is. See [Promotion](./promotion.md).

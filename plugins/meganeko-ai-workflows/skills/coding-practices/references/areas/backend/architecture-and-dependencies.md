@@ -10,7 +10,7 @@ Use this reference when assigning backend responsibilities, choosing repository 
 - Keep transport, service/use-case, domain, repository, outbound, and infrastructure concerns separate.
 - Keep handlers and controllers thin: decode protocol input, call one owning service or use case, map successful results, and map product errors into protocol errors.
 - Keep business rules, database calls, external client calls, deep dependency construction, and inconsistent response or error formatting out of transport code.
-- Let service and use-case code own orchestration: validate use-case rules, coordinate domain objects, call repositories for owned storage, call outbound clients for external systems, and map dependency failures into product errors.
+- Let service and use-case code own orchestration: call the compute function that checks the use-case rule, coordinate domain objects, call repositories for owned storage, call outbound clients for external systems, and pass their product errors on. The rule itself, a limit, an eligibility check, or a calculation, is a function over values in domain code, per [Function Shape](../../function-shape.md).
 - Keep services free of HTTP, gRPC, Kafka, framework, route, header, response-envelope, and protocol-specific status types.
 - Let domain code own product concepts and invariants. Keep it deterministic, framework-free, storage-free, and responsible for valid state.
 - Let infrastructure and adapters own concrete technology, including SQL clients, HTTP or gRPC clients, SDKs, retry policy, serialization, client-specific errors, and connection management.
@@ -34,14 +34,14 @@ our analytics event table               SendGrid delivery status
 Both return data. Only the left column is a repository.
 ```
 
-Why it matters: an outbound client can fail, rate-limit, change contract, or go down independently. Its failures are normalized into product errors by the calling service. A repository failure is usually infrastructure failure of something you control.
+Why it matters: an outbound client can fail, rate-limit, change contract, or go down independently. Its adapter normalizes those failures into product errors, and the calling service decides what the product does about each. A repository failure is usually infrastructure failure of something you control.
 
 ```text
 Wrong: UserRepository.findById() that calls the Auth0 API.
        Named "repository", so retries and outages are never designed for.
 
 Right: AuthorizationClient.fetchProfile() behind an outbound port.
-       The service maps its timeout into a product error.
+       Its adapter maps the timeout into a product error the service handles.
 ```
 
 ## Thin Transport, Applied
@@ -66,7 +66,7 @@ app.post('/orders', async (req, res) => {
 })
 ```
 
-The order limits are product rules, so they belong to the service or domain, where they are testable without HTTP.
+The order limits are product rules, so they belong in domain code that the service calls, where they are testable without HTTP.
 
 ## Real-Boundary Abstraction
 
@@ -80,16 +80,16 @@ The order limits are product rules, so they belong to the service or domain, whe
 - Point dependencies inward: transport depends on service or feature entry points; services depend on domain contracts and inward-facing ports; adapters implement those ports; infrastructure supplies concrete technology.
 - Keep runtime-neutral domain code dependent only on runtime-neutral concerns.
 - Keep feature or service internals private and public exports narrow.
-- Do not use a barrel, alias, callback, cast, context, or service locator to conceal a forbidden dependency.
+- A forbidden edge stays forbidden however it is reached. The gate is in [Core Practices](../../core.md).
 - Keep production code independent of test code.
-- Stop when a requested edge has no declared owner or violates the dependency graph; resolve ownership explicitly.
+- Stop when a requested edge has no declared owner or violates the dependency graph, and ask, as [Core Practices](../../core.md) describes.
 
 ## Failure Modes
 
-- State the failure modes a design or brief must cover before implementation: timeout, retry, partial write, crash midway, and dependency down, and the behavior in each case.
+- Before implementing anything that calls an outside system (a database, a queue, another service), find the stated behavior for each failure mode: timeout, retry, partial write, crash midway, and outside system down. Take it from the task, the change map, or the existing code. Where none is stated, ask; do not choose the product's behavior yourself. When you are the one writing the brief or the design, state it there.
 - This is a design question, not a constraint on the order code gets typed in.
 
 ## Idempotent Writes
 
-- State how a repeat is detected for anything that writes: a handler, a queue consumer, or a retried outbound call. An idempotency key, an upsert, or a state check are all valid; if none applies, state why the write can't repeat.
+- Anything that writes (a handler, a queue consumer, a retried outbound call) has a stated way to detect a repeat: an idempotency key, an upsert, or a state check, or a stated reason the write cannot repeat. Use the method the task or the existing code gives. A new key column or stored record is a decision: ask before adding it.
 - Reads are exempt.
