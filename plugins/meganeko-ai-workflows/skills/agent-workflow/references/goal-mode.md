@@ -58,7 +58,7 @@ Do not invent project facts from memory.
 
 ## Ownership
 
-The main thread owns product understanding, architecture judgment, acceptance criteria, status, and final completion decisions.
+The user owns the objective, the acceptance criteria, and the decision that the goal is complete; a change to the objective or to a criterion goes to the user. The main thread owns product understanding, the plan, status, and the evidence that each criterion is met.
 
 Checklists, tools, and subagents may support execution, but they do not replace main-thread judgment.
 
@@ -77,9 +77,9 @@ Keep status concrete. Avoid vague progress language.
 
 ## Completion Rule
 
-Mark a goal complete only when the approved acceptance criteria are met and required verification has passed or been explicitly waived by the user.
+Report a goal as met only when every approved acceptance criterion has a named check and its result, and required verification has passed or been explicitly waived by the user. A criterion you could not exercise is not met: say so. Reporting a goal as met does not close it: the user closes it, and a ticket or a tracker item is marked done only when the user asks for that item.
 
-Do not mark complete merely because:
+Do not report a goal as met merely because:
 
 - implementation is partially done
 - context is low

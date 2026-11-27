@@ -14,10 +14,11 @@ Keep this file small. Load only the reference that matches the task.
 - Treat goal mode as an explicit operating contract with the user.
 - Treat subagents as delegated workers or evaluators for both normal turns and goal mode, not final decision makers.
 - Preserve the main thread for judgment work.
-- Follow the active project instructions (`CLAUDE.md`, `AGENTS.md`, or the runtime equivalent) and developer delegation policy as the source of truth for when delegation is required, optional, or skipped.
+- Follow the active project instructions (`CLAUDE.md`, `AGENTS.md`, or the runtime equivalent) and developer delegation policy as the source of truth for when delegation is required, optional, or skipped, and for roles, staffing, briefs, and ownership wherever they define them.
 - Propose stronger workflow modes when they would materially improve the work.
 - Do not start goal mode unless the user explicitly asks for it or approves the proposal.
-- The main agent owns user intent, product understanding, architecture and UX judgment, acceptance criteria, integration, verification, and final status.
+- The user owns what is built: intent, architecture, acceptance criteria, scope, and dependencies. Raise a decision about any of them with the user; do not make it.
+- The main agent owns how the work is run: decomposition, briefs, checking and accepting results, and status.
 - Read source artifacts before making project-specific claims.
 
 ## Reference Routing
@@ -28,7 +29,7 @@ Read only the branch that applies:
 - Subagents, parallel agent work, model and reasoning selection, bounded implementation/review/research prompts, skill forward-testing: `references/subagents.md`
 - Context hygiene, context compaction timing, drift recovery, and preservation instructions: `references/context-hygiene.md`
 
-If a task may need context management, read `references/context-hygiene.md`. This includes long-running work, resumed work, goal mode, topic shifts, subagent-heavy work, or any task where stale context may reduce accuracy.
+Read `references/context-hygiene.md` for long-running work, resumed work, goal mode, a topic shift, or subagent-heavy work.
 
 If a task involves multiple workflow areas, read each matching reference. Use goal-mode guidance for overall ownership, subagent guidance only for delegation, and context-hygiene guidance only for compaction decisions.
 
