@@ -22,6 +22,7 @@ Anything else is trivial: match repository style, and load nothing beyond what E
 1. [Core Practices](./references/core.md), for who decides structure, the change map, and the universal gates.
 2. Every branch matched below. Branches compose. Activating a branch does not load all of it; each index selects its own leaves.
 3. [Architecture Document](./references/architecture-document.md), only when the change writes or changes the project's architecture document.
+4. When designing a new project, before proposing any structure: 1 and 2 above, plus the layout its area branch owns. For a backend that is [Backend Project Layout](./references/areas/backend/project-layout.md).
 
 | Branch | Load when |
 | --- | --- |
