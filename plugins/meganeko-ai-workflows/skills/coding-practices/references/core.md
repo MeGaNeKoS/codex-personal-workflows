@@ -21,7 +21,8 @@ These are decisions, and you ask before making any of them:
 - a new module: a new package, crate, top level directory, or any unit the architecture document lists;
 - a responsibility moving from one module to another;
 - a new library or service the project depends on;
-- a new table, field, or stored record the task did not name.
+- a new table, field, or stored record the task did not name;
+- your own version of a job that a library the project uses already does.
 
 A new file inside an existing module, for a responsibility that module already has, is not a decision. Create it.
 
@@ -47,7 +48,8 @@ Dependency     : each edge added, removed, or relied on, its direction,
 Boundary       : where trust or representation changes, and who converts
 Seam           : the public test seam for each changed responsibility
 Reuse          : the existing functions and types the change calls,
-                 each with its file
+                 each with its file, and the library facility for
+                 each standard job
 ```
 
 Worked example, adding "export invoices as CSV" to a billing feature:
@@ -67,7 +69,7 @@ Reuse          : csv/encode encodeRows; billing/invoice Invoice, InvoiceLine,
 
 The forbidden edge is the point. If the CSV primitive needed to know about invoices, it is not a neutral primitive and the split is wrong.
 
-The Reuse line is written from the list of what the module holds, never from memory. It is a floor: whoever builds still looks before adding a function, as [Function Shape](./function-shape.md) says.
+The Reuse line is written from the list of what the module holds, never from memory. It is a floor: whoever builds still looks before adding a function, as [Function Shape](./function-shape.md) says. For a standard job, such as a timeout, routing, a retry, or parsing, the line names the library facility to use or wrap, looked up in the library: a coder left to choose writes its own.
 
 The map uses four words in a fixed sense:
 

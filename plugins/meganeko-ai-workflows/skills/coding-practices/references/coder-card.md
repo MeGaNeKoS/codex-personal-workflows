@@ -6,8 +6,8 @@ Load before any code change and keep it in view. Load it again after a context s
 
 1. Read your brief, and the architecture document's lines for the modules you touch.
 2. List what your module and the modules it may call already hold, with the list command the architecture document gives, filtered by the noun. Use what is there. [What Exists](./what-exists.md)
-3. When a library the project uses does the job, or most of it, use it, or wrap it and add the missing part. Writing the whole yourself needs a reason no wrapper can meet, stated in your report. [Function Shape](./function-shape.md)
-4. Stop and ask before adding a module, a dependency between modules, a library, or a stored field your brief does not name. [Core Practices](./core.md)
+3. For a standard job, such as a timeout, routing, a retry, or parsing, use the library facility your brief's Reuse line names. Where it names none and a library the project uses does the job, or most of it, wrap the library and add the missing part. [Function Shape](./function-shape.md)
+4. Stop and ask before adding a module, a dependency between modules, a library, a stored field your brief does not name, or your own version of a job a project library already does. [Core Practices](./core.md)
 
 ## While You Write
 
@@ -27,9 +27,10 @@ Load before any code change and keep it in view. Load it again after a context s
 15. One behavior area per pair of files, `<area>_positive` and `<area>_negative`. Code that only tests call lives in the test files. [Core Practices](./core.md)
 16. A test fails when the behavior it protects is removed. Name the line whose removal it catches before you call it done. [Core Practices](./core.md)
 17. A fix starts with a test that fails for the reported case.
+18. Cover every failure case that applies to what you built, asked or not, each with a test. Your area branch lists them; for a backend that is [What Breaks](./areas/backend/what-breaks.md).
 
 ## Before You Report
 
-18. Build, lint, and tests pass, and no placeholder is left.
-19. Read your diff once against lines 6 to 13, and look for one rule written in two places. Fix what you find.
-20. Report the functions and types you added and the ones you reused, each with its file, and anything you could not verify.
+19. Build, lint, and tests pass, and no placeholder is left.
+20. Read your diff once against lines 6 to 13, and look for one rule written in two places. Fix what you find.
+21. Report the functions and types you added and the ones you reused, each with its file, the test for each failure case, and anything you could not verify.
