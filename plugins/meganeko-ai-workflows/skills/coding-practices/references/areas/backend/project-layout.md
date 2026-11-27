@@ -8,14 +8,17 @@ The top-level code folders are the layers. Inside a layer, each context gets one
 
 | Folder | Holds | May import |
 | --- | --- | --- |
-| `server/<transport>` | one folder per way a use case is triggered (an API, a queue consumer, a scheduled job): routes, controllers, request and response shapes, error to protocol mapping | `services`, `pkg` |
+| `server/<transport>` | one folder per way a use case is triggered, such as `rest`, a queue consumer, or a scheduled job: routes, controllers, request and response shapes, error to protocol mapping | `services`, `pkg` |
 | `services/<context>` | the context's types, rules, use cases, and errors | another context under `services`, `pkg` |
 | `repositories/<context>` | queries, and the mapping between stored rows and the service's types | `services`, `infrastructure`, `pkg` |
+| `repositories` itself | an aggregator, only when one is needed: the stores as one group, and a transaction that spans contexts | its own context folders, `services`, `infrastructure`, `pkg` |
 | `outbound/<system>` | clients for systems the project does not own | `services`, `infrastructure`, `pkg` |
 | `infrastructure/<concern>` | configuration, connections, technology with no product knowledge | `pkg` |
 | `pkg/<concern>` | code with no product knowledge that several layers use, such as logging | nothing in the project |
 
 The entry point sits where the language starts a program, outside the layers. It imports every layer: it builds everything once and starts a transport. A service imports no other layer but `pkg`: it declares what it needs, and the entry point hands it the implementation. The reasons are in [Architecture And Dependencies](./architecture-and-dependencies.md), the wiring in [Composition And Lifecycle](./composition-and-lifecycle.md).
+
+Two context folders of one layer never import each other, except under `services`. Where one use case writes through several contexts in one transaction, the aggregator of the repository layer owns that transaction, as [Composition And Lifecycle](./composition-and-lifecycle.md) describes.
 
 A reader finds a behavior by its layer and its context: the answer is the path.
 

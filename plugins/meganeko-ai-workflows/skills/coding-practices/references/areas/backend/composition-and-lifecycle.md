@@ -46,6 +46,7 @@ The service names `Clock` rather than calling `Date.now()` because time is a rea
 ## Dependency Aggregation
 
 - Use repository or outbound aggregators when a family of dependencies should be grouped, cached, lazily constructed, or passed through request or runtime context.
+- A transaction that spans contexts belongs to the repository aggregator. The service declares a port for the work that must commit together; the aggregator implements it by opening the transaction and handing each context's store the same handle. A store never imports another store.
 - Keep aggregators typed and responsibility-focused.
 - Do not let an aggregator become an untyped service locator.
 

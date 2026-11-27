@@ -5,6 +5,7 @@ Use this reference when splitting backend files or naming models, services, erro
 ## Responsibility-Based Modules
 
 - Group by layer first, then by context inside the layer, as [Project Layout](./project-layout.md) describes.
+- A folder, package, or module never takes the name of one the language or an imported library already owns. Name it for its role, such as `rest` for an HTTP transport.
 - Give data-shape definitions their own file once code outside the domain uses them.
 - Use model or type files for payloads, domain values, contracts, and DTOs, each in the layer that owns it.
 - Use service or use-case files for orchestration and behavior.
