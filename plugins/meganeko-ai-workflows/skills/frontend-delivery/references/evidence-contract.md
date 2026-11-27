@@ -1,6 +1,6 @@
 # Evidence Contract
 
-This file owns the full evidence contract for frontend-delivery artifacts: research records, implementation plans, and verification reports. The SKILL.md label definitions summarize this contract; nothing here is restated elsewhere.
+This file owns the full evidence contract for frontend-delivery artifacts: research records, implementation plans, and verification reports. SKILL.md names the four labels and defines none of them; nothing here is restated elsewhere.
 
 ## Labels
 
