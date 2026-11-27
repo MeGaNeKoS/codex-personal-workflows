@@ -37,3 +37,12 @@ Whoever writes the brief turns every line that applies into a requirement with i
 
 - Required input is missing or invalid: it exits nonzero and names what is wrong.
 - It is interrupted: it leaves nothing half done.
+
+## Work Started Alongside Its Caller
+
+A thread, a task, or a goroutine that runs while its starter goes on or waits. Work that only bounds a call's time is not started: pass the deadline to the call.
+
+- It crashes: the process survives, and its starter gets an error.
+- It returns an error: its starter gets it.
+- Its starter stops waiting: it ends within a bounded time, and what it produces late is dropped.
+- The process is told to stop: it ends within the time the process gives work to stop.

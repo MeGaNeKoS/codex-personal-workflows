@@ -18,7 +18,7 @@ Select every row matched by the change. An explicit **Also load** instruction in
 | Product error shape, stable error codes, response formatting, or transport error mapping | [Errors And Responses](./errors-and-responses.md) |
 | A new table, index, or query; a database migration | [Schema And Migrations](./schema-and-migrations.md) |
 | Unit or integration responsibility, fakes, wiring tests, adapter tests, or migration compatibility | [Testing](./testing.md) |
-| A server, an outbound client, a store, a background job, or a command is added or changed; writing its brief; reviewing it | [What Breaks](./what-breaks.md) |
+| A server, an outbound client, a store, a background job, a command, or work started alongside its caller is added or changed; writing its brief; reviewing it | [What Breaks](./what-breaks.md) |
 
 Also load the focused language references matching the implementation concerns. The backend branch owns responsibility placement and dependency direction; the active language reference owns language-specific parsing, validation, construction, type, cast, and escape-hatch mechanics. Load the active framework/library reference for concrete runtime mapping and the active protocol reference for wire-specific contracts and behavior.
 
