@@ -27,12 +27,12 @@ Use this baseline response shape:
 
 - `type`: stable problem type URI, usually `urn:<product>:problem:<kebab-code>`.
 - `title`: short human-readable title for the error category.
-- `status`: HTTP status code.
+- `status`: HTTP status code. It equals the status line of the response.
 - `detail`: instance-specific human-readable message.
 - `instance`: URI identifying this specific error occurrence.
 - `code`: stable machine-readable code, usually snake_case.
 - `request_id`: request/error correlation ID.
-- `errors`: field-level validation errors, empty array when not applicable.
+- `errors`: field-level validation errors. Always an array: `[]` when there are none, never `null` and never absent.
 
 ## Model
 
@@ -61,7 +61,13 @@ Problem details formatter:
   application error + request id -> RFC 9457 JSON
 ```
 
-Do not let every handler manually construct arbitrary JSON. Handlers and services should raise or return typed application errors, then one HTTP boundary formatter should produce the RFC 9457 response.
+All of this is HTTP boundary code, because a category carries an HTTP status:
+
+- The boundary raises an application error itself for what it detects: a body that fails validation, missing or invalid credentials.
+- A failure from inside a service arrives as a product error that knows nothing about HTTP. The boundary holds one mapping from each product error to a category.
+- One formatter then produces the RFC 9457 response.
+
+A service never constructs one of these types, and the category table sits with the HTTP adapter, not in a domain package.
 
 ## Common Error Categories
 
@@ -74,6 +80,7 @@ authorization_required  -> 401
 authorization_invalid   -> 401
 permission_required     -> 403
 not_found               -> 404
+method_not_allowed      -> 405
 conflict                -> 409
 protected_resource      -> 409
 rate_limited            -> 429
@@ -81,13 +88,29 @@ storage_unavailable     -> 503
 internal_error          -> 500
 ```
 
-Prefer product-specific codes when they add useful meaning:
+Which status a failure gets is decided by the HTTP branch of `coding-practices`; this table records the result for the common cases. A status the table does not cover gets a category of its own; never answer it with a category that carries a different status.
+
+Add a product-specific code when a client has to tell apart two failures that share a status, for example:
 
 ```text
 invalid_audience
 protected_system_resource
 license_limit_exceeded
 ```
+
+## The Boundary Formatter
+
+The formatter is the only code that writes an error response. For every error it sets three things together:
+
+1. the response status line, from the category's status;
+2. the header `Content-Type: application/problem+json`;
+3. the JSON body above.
+
+On a `401` it also sets a `WWW-Authenticate` header carrying the challenge for the scheme in use, such as `Bearer` for bearer tokens. HTTP requires that header on every `401` (RFC 9110, section 15.5.2).
+
+A framework raises HTTP errors of its own, for an unknown route, a method that is not allowed, or a body it refuses. Those leave as problem responses too, each mapped to the category with the same status.
+
+Any other error that is not a typed application error is logged with its cause and answered as `internal_error`, with none of the cause in the body.
 
 ## Rules
 

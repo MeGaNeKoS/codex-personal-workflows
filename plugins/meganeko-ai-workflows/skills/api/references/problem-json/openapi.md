@@ -1,6 +1,6 @@
 # OpenAPI
 
-Document one reusable `Problem` schema and reference it from error responses.
+Document one reusable `Problem` schema under `components/schemas` and reference it from every error response.
 
 ```yaml
 Problem:
@@ -48,10 +48,27 @@ Problem:
             type: string
 ```
 
-Use this schema for `400`, `401`, `403`, `404`, `409`, `429`, `500`, and other error responses.
+Use this schema for `400`, `401`, `403`, `404`, `409`, `429`, `500`, and every other error response.
 
-Always document the response media type as:
+Every error response is documented under the media type `application/problem+json`, never `application/json`. A `401` also documents its `WWW-Authenticate` header:
 
 ```yaml
-application/problem+json
+responses:
+  "401":
+    description: The request carries no valid credentials.
+    headers:
+      WWW-Authenticate:
+        description: The challenge for the authentication scheme in use.
+        schema:
+          type: string
+    content:
+      application/problem+json:
+        schema:
+          $ref: "#/components/schemas/Problem"
+  "404":
+    description: The resource does not exist.
+    content:
+      application/problem+json:
+        schema:
+          $ref: "#/components/schemas/Problem"
 ```

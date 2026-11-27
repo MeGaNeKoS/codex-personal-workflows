@@ -90,26 +90,30 @@ export class InternalError extends BaseError {
 
 ## HTTP Boundary
 
-At the HTTP boundary, catch `BaseError`, call `.format(requestId)`, and return `application/problem+json`.
+One function builds every error response. It sets the status line, the content type, and the body together, and adds the challenge header on a 401. `json` stands for the framework's JSON response helper.
 
-Unknown errors should be logged internally and returned as `InternalError` without leaking sensitive details.
+```ts
+const PROBLEM_CONTENT_TYPE = "application/problem+json"
+const UNAUTHORIZED_STATUS = 401
+
+function problemResponse(error: BaseError, requestId: string): Response {
+  const headers: Record<string, string> = { "Content-Type": PROBLEM_CONTENT_TYPE }
+  if (error.status === UNAUTHORIZED_STATUS) headers["WWW-Authenticate"] = "Bearer"
+  return json(error.format(requestId), { status: error.status, headers })
+}
+```
+
+The boundary catches everything. A `BaseError` is formatted as it is. Anything else is logged internally and answered as `InternalError`, so no sensitive detail leaks.
+
+A product error thrown by a service is not a `BaseError`. One function beside this code holds the whole mapping from product error to `BaseError` subclass, and the catch block applies it before the `instanceof` test. Without that step a product error such as "order not found" is answered as a 500.
 
 ```ts
 try {
   return await handler(request)
 } catch (error) {
-  if (error instanceof BaseError) {
-    return json(error.format(requestId), {
-      status: error.status,
-      headers: { "Content-Type": "application/problem+json" },
-    })
-  }
+  if (error instanceof BaseError) return problemResponse(error, requestId)
 
   logger.error(error)
-  const internal = new InternalError()
-  return json(internal.format(requestId), {
-    status: internal.status,
-    headers: { "Content-Type": "application/problem+json" },
-  })
+  return problemResponse(new InternalError(), requestId)
 }
 ```

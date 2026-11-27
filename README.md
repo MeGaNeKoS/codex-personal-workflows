@@ -18,7 +18,7 @@ plugins/meganeko-ai-workflows/
 | Skill | Scope |
 | --- | --- |
 | `coding-practices` | Implementation architecture, ownership, dependency seams, testing strategy. Routes to area, language, framework, and protocol references. |
-| `api` | HTTP/REST contracts, OpenAPI, RFC 9457 `application/problem+json`. |
+| `api` | RFC 9457 `application/problem+json` error responses for HTTP APIs: error codes, the boundary formatter, and the OpenAPI error schema. |
 | `git-command` | Staging, commits, conventional subjects, history edits, safety. |
 | `frontend-delivery` | Frontend research, planning, implementation, and runtime verification under an evidence contract. |
 | `agent-workflow` | Goal mode, delegation, and context hygiene, written provider neutral. |
