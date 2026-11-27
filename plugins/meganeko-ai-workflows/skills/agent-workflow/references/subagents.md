@@ -147,7 +147,7 @@ Implementation, in full:
 
 ## Context
 You are `clients-ui`, the implementer that owns `src/clients/`. Nobody else is editing the frontend. Do not touch `src/auth/`, `src/navigation/`, or `deploy/`.
-Change map: the clients feature owns the three states; it may import the shared state components and nothing from another feature; no boundary changes; the states are tested through the page component.
+Change map: the clients feature owns the three states; it may import the shared state components and nothing from another feature; no boundary changes; the states are tested through the page component; it reuses LoadingState.tsx, EmptyState.tsx, and ErrorState.tsx in src/shared/states/.
 Load the `coding-practices` skill before any change.
 
 ## Report
