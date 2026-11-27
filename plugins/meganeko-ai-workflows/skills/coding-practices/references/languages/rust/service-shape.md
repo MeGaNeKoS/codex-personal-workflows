@@ -43,7 +43,7 @@ Generic parameters propagate into every caller's type signature. When that propa
 ## Module Shape
 
 - `lib.rs` exposes intentional APIs, so new implementation does not go there. An existing large `lib.rs` is left alone until the user asks for a split.
-- Separate type-heavy modules from behavior when a domain grows. Common names are `model`, `command`, `service`, `ports`, `adapters`, `error`, and `constants`, but follow local project style.
+- Separate type-heavy modules from behavior when a domain grows. Common names are `model`, `command`, `service`, `ports`, `error`, and `constants`, but follow local project style.
 - Keep domain modules free of web framework types, RPC framework types, database clients, vendor SDK clients, and tracing setup.
 - Rust keeps unit tests inside the source file, so the test file rule of [Core Practices](../../core.md) applies to the inline modules: while the source file covers one behavior area and stays under 1000 lines, keep its positive cases in `#[cfg(test)] mod tests` and its negative cases in a second inline module, `#[cfg(test)] mod negative_tests`. Either a second behavior area or passing 1000 lines moves the tests to sibling files or `tests/`: one behavior area per file with every case of it, positive cases in one file and negative cases in a sibling file, never one file per case.
 - Moving a function to its owner along with its tests also means updating the `mod` list and any visibility the move requires. A re-export shim left behind in the old file is not acceptable: it is a barrel that hides ownership, which [TypeScript Module Shape](../typescript/module-shape.md) forbids for the same reason.

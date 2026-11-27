@@ -2,7 +2,7 @@
 
 Use this reference when assigning backend responsibilities, choosing repository or outbound ownership, or introducing a port or adapter.
 
-- Apply modular backend design by responsibility; adapt the pattern to the current project and language instead of copying a folder structure blindly.
+- Apply modular backend design by responsibility. The folder layout is [Project Layout](./project-layout.md).
 - Prefer the option that improves boundary clarity, testability, and replacement cost without adding ceremony the project does not need.
 
 ## Layer Responsibilities
@@ -19,7 +19,7 @@ Use this reference when assigning backend responsibilities, choosing repository 
 
 - Treat repositories as owned storage: service-owned relational tables, product-owned object-storage buckets, internal durable queues, and owned analytical or event tables.
 - Treat external systems as outbound clients even when they return data: third-party APIs, other services, SaaS or vendor systems, identity providers, remote license services, notification providers, and authorization services.
-- Keep repository and outbound ports owned near the service or domain side; keep concrete adapters in infrastructure.
+- Keep repository and outbound ports owned near the service or domain side, and their concrete adapters outside it.
 
 The test is **ownership of the data, not whether it returns rows**:
 

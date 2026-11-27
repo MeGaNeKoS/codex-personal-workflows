@@ -2,7 +2,7 @@
 
 Use this branch for backend architecture, transport handlers, application services and use cases, domain modules, repositories, outbound clients, dependency construction, error models, and backend test seams.
 
-Apply the guidance by responsibility. Translate it into the current project and language instead of copying a folder structure or layer template blindly.
+Apply the guidance by responsibility. A new backend starts from [Project Layout](./project-layout.md).
 
 ## Architecture Routing
 
@@ -10,6 +10,7 @@ Select every row matched by the change. An explicit **Also load** instruction in
 
 | Changed concern | Load |
 | --- | --- |
+| Starting a new backend, adding a top-level folder or a context, or which folder a new file goes in | [Project Layout](./project-layout.md) |
 | Transport, application/use-case, domain, repository, outbound, or infrastructure ownership; dependency direction; port placement; repository-versus-outbound classification | [Architecture And Dependencies](./architecture-and-dependencies.md) |
 | Protocol, persistence, configuration, or external-service values; representation conversion; adapter placement; retention of domain-safe values | [Boundaries And Values](./boundaries-and-values.md) |
 | Composition root, mandatory dependency construction, long-lived clients, dependency aggregation, startup, shutdown, or runtime lifecycle | [Composition And Lifecycle](./composition-and-lifecycle.md) |
@@ -23,7 +24,7 @@ Also load the focused language references matching the implementation concerns. 
 ## Backend Architecture Gates
 
 - Every changed responsibility must have one named owner and an allowed dependency direction before editing.
-- Transport adapts protocol input and output; application services and use cases orchestrate; domain code owns product invariants; infrastructure adapters own concrete technology.
+- Transport adapts protocol input and output; application services and use cases orchestrate; domain code owns product invariants; adapters and infrastructure own concrete technology.
 - Repositories represent product-owned storage. Remote services, vendors, identity systems, notification providers, and other externally owned systems are outbound clients.
 - External representations are converted at the adapter that owns them. Domain-safe values remain intact through application, domain, and port contracts.
 - Mandatory dependencies are explicit, and long-lived concrete clients are constructed at a composition root rather than inside handlers or services.

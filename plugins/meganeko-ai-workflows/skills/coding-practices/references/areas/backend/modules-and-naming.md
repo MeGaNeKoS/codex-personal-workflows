@@ -4,9 +4,9 @@ Use this reference when splitting backend files or naming models, services, erro
 
 ## Responsibility-Based Modules
 
-- Group by domain first, then by role inside the domain: `orders/handler`, `orders/service`, `orders/repository`, not root folders named `handlers/`, `services/`, and `repositories/` that mix every domain. Match the repository when it already chose a layout.
+- Group by layer first, then by context inside the layer, as [Project Layout](./project-layout.md) describes.
 - Give data-shape definitions their own file once code outside the domain uses them.
-- Use model or type files for payloads, domain values, contracts, and DTOs.
+- Use model or type files for payloads, domain values, contracts, and DTOs, each in the layer that owns it.
 - Use service or use-case files for orchestration and behavior.
 - Use error files for domain-specific errors and boundary error mapping.
 - Use constants files for named domain rules, protocol values, limits, defaults, and validation rules.
@@ -41,14 +41,14 @@ ApiHelper             StripePaymentClient            outbound, and which vendor
 Processor             InvoicePdfRenderer             what it produces
 UserUtils             EmailAddress                   a domain value with rules
 Service               LicenseVerifier                the single verb it owns
-common/validation.ts  order/order.constants.ts       whose rules these are
+common/validation.ts  services/order/constants.ts    whose rules these are
 ```
 
 Note the pattern in the port/adapter pair: the port names the responsibility, the adapter prefixes the technology.
 
 ```text
 OrderRepository            <- port, owned near the domain
-PostgresOrderRepository    <- adapter, lives in infrastructure
+PostgresOrderRepository    <- adapter, in the repository layer
 InMemoryOrderRepository    <- test fake, same contract
 ```
 

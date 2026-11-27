@@ -7,6 +7,7 @@ Use this branch for Go code: error types, test seams, package layout, and domain
 - Define interfaces at the consuming side when they represent real seams.
 - Use interfaces for repositories and outbound clients when tests or replacement require it. Go cannot monkey-patch ordinary function calls cleanly, so explicit interfaces and constructor injection are practical test seams.
 - Use constructor injection for services.
+- A context has one package in each layer, and they share a name. Import each under an alias that names the layer, such as `billingservice` and `billingrepo`.
 - Return typed/domain errors where callers need to distinguish behavior.
 - Keep database and external client types out of domain logic.
 - Keep repositories for owned data stores only. Put third-party APIs and other services under outbound clients.
