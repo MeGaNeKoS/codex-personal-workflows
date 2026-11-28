@@ -1,6 +1,6 @@
 # What Breaks
 
-Load when a change adds or changes a component of a kind below, and when writing its brief or reviewing it. Each line is a case the component survives.
+Load when a change adds or changes a component of a kind below, or code that does what a section names, and when writing its brief or reviewing it. Each line is a case the component survives.
 
 Whoever writes the brief turns every line that applies into a requirement with its test. Whoever builds covers every line that applies, asked or not, and names the test for each in the report. A line that does not apply is named as such, with the reason.
 
@@ -40,6 +40,22 @@ Whoever writes the brief turns every line that applies into a requirement with i
 
 - Required input is missing or invalid: it exits nonzero and names what is wrong.
 - It is interrupted: it leaves nothing half done.
+
+## Text Built For Another Parser
+
+A URL, a connection string, a query, a command line, a path, a header.
+
+- A value holds the format's own separators or quotes: it goes in through the format's builder or escaper, never joined by hand, and reads back as the same value.
+
+## A Resource That Is Held
+
+A transaction, a lock, a file, a connection.
+
+- The code leaves by any exit, an error and a crash included: the release runs, registered once right after the acquire in the construct the language runs on every exit, never once per exit path.
+
+## Input Checked By A Library Call
+
+- The call accepts a value the rule does not allow, such as a special name or an empty string: each value its documentation lists that the rule excludes is refused.
 
 ## Work Started Alongside Its Caller
 

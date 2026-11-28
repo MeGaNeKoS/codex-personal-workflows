@@ -33,5 +33,5 @@ Load before any code change and keep it in view. Load it again after a context s
 ## Before You Report
 
 20. Build, lint, and tests pass, and no placeholder is left.
-21. Read your diff once against rules 6 to 14, and look for one rule written in two places. Fix what you find.
+21. Search your diff: each value joined by hand into text another parser reads goes through that format's builder or escaper; each discarded result and empty handler follows rule 11. Then read the diff once against rules 6 to 14, and look for one rule written in two places. Fix what you find.
 22. Report the functions and types you added and the ones you reused, each with its file, the test for each failure case, and anything you could not verify.
