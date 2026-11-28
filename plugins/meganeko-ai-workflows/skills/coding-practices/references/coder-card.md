@@ -26,7 +26,7 @@ Load before any code change and keep it in view. Load it again after a context s
 
 15. Test each changed responsibility through the seam your brief names. [Core Practices](./core.md)
 16. One behavior area per pair of files, `<area>_positive` and `<area>_negative`. Code that only tests call lives in the test files. [Core Practices](./core.md)
-17. Write each test before its code and see it fail; a test that passes before its code exists does not test it. A fix starts with a test failing for the reported case. Never break finished code to watch a test fail. [Core Practices](./core.md)
+17. Write each test before its code and see it fail; a test that passes before its code exists does not test it. A test gives the same result on every run: where it waits for something to happen, it waits for the event, under a limit that fails the test, never for a fixed time; and it releases what it opens on every exit. A fix starts with a test failing for the reported case. Never break finished code to watch a test fail. [Core Practices](./core.md)
 18. Cases differing only in input and expected result are rows of one test, positive and negative rows in their own files. [Core Practices](./core.md)
 19. Cover every failure case that applies to what you built or edited, asked or not, each with a test. Your area branch lists them; for a backend that is [What Breaks](./areas/backend/what-breaks.md).
 
