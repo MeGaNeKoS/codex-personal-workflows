@@ -6,10 +6,9 @@ Whoever writes the brief turns every line that applies into a requirement with i
 
 ## A Server That Accepts Requests
 
-- A handler crashes: that request gets an error response, the cause is logged, and the server keeps serving.
+- A handler crashes: the cause is logged and the server keeps serving. The request gets an error response when no output has started, and a response cut off, never finished as a success, when it has.
 - A client sends its headers or body slowly, or never finishes: the connection is cut after a bounded time.
 - A request is larger than allowed, by its declared length or as it streams: it is refused before it is read whole.
-- A handler runs past the time limit: the caller gets a timeout response, and the next request on that connection is served.
 - The process is told to stop: requests in flight finish within a bounded time, and what is left is cut.
 - Input the caller controls reaches a response, a log, or a metric label: its length and characters are bounded first.
 - Many requests arrive at once: shared state is safe, shown by the language's race checker where it has one.
@@ -47,11 +46,11 @@ A URL, a connection string, a query, a command line, a path, a header.
 
 - A value holds the format's own separators or quotes: it goes in through the format's builder or escaper, never joined by hand, and reads back as the same value.
 
-## A Resource That Is Held
+## A Duty Owed On Every Exit
 
-A transaction, a lock, a file, a connection.
+The release of a transaction, a lock, a file, or a connection; a log line or a count for each call; the answer a caller waits for.
 
-- The code leaves by any exit, an error and a crash included: the release runs, registered once right after the acquire in the construct the language runs on every exit, never once per exit path.
+- The code leaves by any exit, an error and a crash included: the duty still runs, registered once, before the code that can exit, in the construct the language runs on every exit, never once per exit path.
 
 ## Input Checked By A Library Call
 

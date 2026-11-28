@@ -7,11 +7,11 @@ Load before any code change and keep it in view. Load it again after a context s
 1. Read your brief, and the architecture document's lines for the modules you touch. Read the files you need several at a time, in one message. Read a file again only after a context summary, or when something other than your own edit may have changed it: another agent, a formatter, a generator.
 2. List what your module and the modules it may call already hold, with the list command the architecture document gives, filtered by the noun. Use what is there. [What Exists](./what-exists.md)
 3. For a standard job, such as a timeout, routing, a retry, or parsing, use the library facility your brief's Reuse line names. Where it names none and a library the project uses does the job, or most of it, wrap the library and add the missing part. [Function Shape](./function-shape.md)
-4. Stop and ask before adding a module, a dependency between modules, a library, a stored field your brief does not name, or your own version of a job a project library already does. [Core Practices](./core.md)
+4. Stop and ask before adding a module, a dependency between modules, a library, a stored field your brief does not name, or your own version of a job a project library already does, and before deciding a behavior your brief leaves open. [Core Practices](./core.md)
 
 ## While You Write
 
-5. Write the top function first, as a sequence of calls. Give each missing function a typed placeholder, build, then fill them one at a time. [Function Shape](./function-shape.md)
+5. Build in this order. First your brief's function plan, exactly as given: the top function with its calls, and a typed placeholder for each other function, until it builds. With no function plan, write the top function yourself, as a sequence of calls, and take the placeholders from it. Then the tests, each seen failing. Then one function at a time, in the plan's order: fill it, build, and run the tests. A test may still fail only at a placeholder not yet filled; fix any other failure before you start the next. A planned function that cannot work as written goes back to the lead unchanged. [Function Shape](./function-shape.md)
 6. One job per function. Say what the body does in one sentence: if it needs "and", split it. A product rule never shares a function with a database, network, file, or clock call. [Function Shape](./function-shape.md)
 7. The name is the explanation: the domain's words, a verb and its result for a function, the unit on a quantity, the truth about what it writes or sends. Never `handle`, `process`, `data`, `result`, or `tmp`. [Readability](./readability.md)
 8. Name every limit, timeout, size, and protocol value, beside the rule that owns it. [Readability](./readability.md)
