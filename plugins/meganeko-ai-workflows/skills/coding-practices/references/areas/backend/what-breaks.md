@@ -13,6 +13,9 @@ Whoever writes the brief turns every line that applies into a requirement with i
 - The process is told to stop: requests in flight finish within a bounded time, and what is left is cut.
 - Input the caller controls reaches a response, a log, or a metric label: its length and characters are bounded first.
 - Many requests arrive at once: shared state is safe, shown by the language's race checker where it has one.
+- Many costly requests arrive at once, such as password hashes: how many run at once is bounded, and the rest wait or are refused.
+- A caller probes for a hidden record, such as an account behind an address: a hit and a miss get the same answer in the same time.
+- A caller not signed in makes the server act on one target again and again, such as mailing an address: the action is bounded per target, not only per caller.
 
 ## A Client Of An Outside System
 

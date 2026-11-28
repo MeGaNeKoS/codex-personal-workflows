@@ -19,7 +19,7 @@ Load before any code change and keep it in view. Load it again after a context s
 10. Write no comments. Only a directive a tool acts on, and a note on a measured speed optimization, stay. [Readability](./readability.md)
 11. An error propagates, or is handled with a stated reason and a log. No silent fallback. [Core Practices](./core.md)
 12. A clock, a database, a network client, or a random source arrives as a parameter. [Core Practices](./core.md)
-13. Never start a thread, a task, or a goroutine only to bound a call's time: pass the deadline to the call. Work you do start survives the cases your area branch lists; for a backend that is [What Breaks](./areas/backend/what-breaks.md).
+13. Never start a thread, a task, or a goroutine only to bound a call's time: pass the deadline to the call. Concurrent work you start or edit survives the cases your area branch lists; for a backend that is [What Breaks](./areas/backend/what-breaks.md).
 14. Export only what another module uses. No `utils`, `helpers`, or `common`. [Core Practices](./core.md)
 
 ## Tests
@@ -28,7 +28,7 @@ Load before any code change and keep it in view. Load it again after a context s
 16. One behavior area per pair of files, `<area>_positive` and `<area>_negative`. Code that only tests call lives in the test files. [Core Practices](./core.md)
 17. A test fails when the behavior it protects is removed. Name the line whose removal it catches before you call it done. [Core Practices](./core.md)
 18. A fix starts with a test that fails for the reported case.
-19. Cover every failure case that applies to what you built, asked or not, each with a test. Your area branch lists them; for a backend that is [What Breaks](./areas/backend/what-breaks.md).
+19. Cover every failure case that applies to what you built or edited, asked or not, each with a test. Your area branch lists them; for a backend that is [What Breaks](./areas/backend/what-breaks.md).
 
 ## Before You Report
 
