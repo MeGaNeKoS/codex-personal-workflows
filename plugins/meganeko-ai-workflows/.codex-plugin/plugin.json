@@ -1,6 +1,6 @@
 {
   "name": "meganeko-ai-workflows",
-  "version": "0.3.0+codex.20261128070017",
+  "version": "0.3.0+codex.20261128090932",
   "description": "Portable agent workflow, context hygiene, coding, frontend design, API, and Git skills.",
   "author": {
     "name": "MeGaNeKo"
